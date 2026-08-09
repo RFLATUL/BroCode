@@ -253,7 +253,7 @@ The mechanical design was based on three requirements:
 -   **Compactness** --- the robot should remain small and manoeuvrable.
 -   **Modularity** --- components should be easy to modify and repair.
 
-The approximate base footprint is **16 cm × 12 cm**. The camera is
+The approximate base footprint is **22 cm × 12 cm**. The camera is
 mounted approximately **26 cm above the floor**, with its optical axis
 angled approximately **10° downward from horizontal**.
 
@@ -429,7 +429,7 @@ instability.
 
 # Power Architecture
 
-The robot uses a **7.4 V 2S, 1300 mAh battery pack**.
+The robot uses a **7.4 V, 1500 mAh Li-ion battery pack**.
 
 The battery feeds the power distribution system, which provides the
 appropriate supply to the motor system and regulated electronics.
@@ -1158,14 +1158,14 @@ Parking was one of the most difficult parts of our design.
 Our goal was to use the camera effectively while keeping the sensor
 system as simple as possible.
 
-The final parking approach combines:
+The current parking development approach combines:
 
 -   Camera detection
 -   IMU orientation
 -   IR feedback
 -   Controlled steering
 
-The general sequence is:
+The intended sequence is:
 
 ``` text
 Three Laps Complete
@@ -1212,28 +1212,6 @@ the final manoeuvre.
 
 ------------------------------------------------------------------------
 
-# IR-Based Parking Detection
-
-The IR sensors provide close-range information during parking.
-
-They are useful when the robot is close enough to the parking boundary
-that camera-based distance estimation becomes less reliable.
-
-The final parking decision combines:
-
-``` text
-Camera
-   +
-IMU
-   +
-IR
-   ↓
-Final Parking Decision
-```
-
-This reduces dependence on any single measurement.
-
-------------------------------------------------------------------------
 
 # Edge Cases and Failure Handling
 
@@ -1687,10 +1665,10 @@ The final system combines:
                                                   response
 
   Camera saw electronics  White electronics cover Cleaner visual input
-  as track features                               
+  as track features
 
   Chassis changes were    LEGO modular structure  Faster iteration
-  difficult                                       
+  difficult
 
   Motor mounting movement Custom 3D-printed mount Improved alignment
 
@@ -1698,16 +1676,16 @@ The final system combines:
                           software tuning         steering
 
   False colour detections Colour-space            More reliable detection
-                          thresholding and        
-                          filtering               
+                          thresholding and
+                          filtering
 
   Repeated lap detection  Debouncing              Correct lap counting
 
-  Parking alignment       IMU + IR feedback       More controlled parking
-  uncertainty                                     
+  Parking alignment       IMU orientation feedback       More controlled parking
+  uncertainty
 
   Wiring complexity       Organised electronics   Cleaner connections
-                          board                   
+                          board
 
   Mechanical flex         Structural              More consistent
                           reinforcement           steering
@@ -1746,27 +1724,27 @@ We considered the following major failure modes:
   brownout          spike                               system
 
   Motor stall       Insufficient      Robot stops       Gear reduction
-                    torque                              
+                    torque
 
   Camera false      Electronics /     Wrong navigation  White cover +
   detection         lighting                            filtering
 
   Steering          Excessive gain    Robot loses path  Parameter tuning
-  oscillation                                           
+  oscillation
 
   Missed obstacle   Poor colour       Incorrect route   Colour testing +
                     detection                           filtering
 
   Repeated lap      Same marker       Incorrect state   Debouncing
-  count             detected                            
-                    repeatedly                          
+  count             detected
+                    repeatedly
 
   IMU error         Calibration /     Heading error     Calibration +
                     interference                        visual feedback
 
   IR false reading  Surface /         Parking error     Multi-sensor
                     distance                            interpretation
-                    variation                           
+                    variation
 
   Loose wire        Vibration         Sensor / motor    Secured and
                                       failure           organised wiring
@@ -1864,11 +1842,11 @@ while maintaining feedback between them.
   IMU                      BNO055
   IR Sensors               4
   Limit Switches           2
-  Battery                  7.4 V 2S 1300 mAh
+  Battery                  7.4 V, 1500 mAh Li-ion
   Main Regulation          5 V 3 A Buck Converter
   Chassis                  LEGO Technic + 3D Printed
   Approx. Weight           650--700 g
-  Approx. Base Footprint   16 × 12 cm
+  Approx. Base Footprint   22 × 12 cm
   Camera Height            Approx. 26 cm above floor
   Camera Angle             Approx. 10° downward from horizontal
 
@@ -1885,7 +1863,7 @@ while maintaining feedback between them.
   TB6612FNG Motor Driver                       1
   REV 2000 Series Servo                        1
   GoBILDA Servo Mount                          1
-  7.4 V 2S 1300 mAh Battery                    1
+  7.4 V, 1500 mAh Li-ion Battery                    1
   5 V 3 A Buck Converter                       1
   USB Buck Converter                           1
   BNO055 IMU                                   1
@@ -2114,6 +2092,10 @@ Engineering Decision
 ------------------------------------------------------------------------
 
 # Final Performance Validation
+
+**Current Open Challenge reference:** approximately **35 seconds per open-round lap**.
+
+This is the main recorded performance figure currently available to us; other performance metrics are not presented as measured values unless they have been recorded.
 
 The final robot is evaluated across the same major areas used during
 development.
@@ -2345,7 +2327,7 @@ The documentation covers:
 
 ## 5. Reproducibility and GitHub Quality
 
-The repository is intended to contain:
+The repository is being built to contain:
 
 -   README
 -   Hardware documentation
