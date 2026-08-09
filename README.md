@@ -1852,77 +1852,26 @@ while maintaining feedback between them.
 
 ------------------------------------------------------------------------
 
-# Bill of Materials
+## Bill of Materials
 
-  Component                             Quantity
-  ----------------------------------- ----------
-  Raspberry Pi 4B 4GB                          1
-  Raspberry Pi Camera Module 3 Wide            1
-  D360 Brushed DC Motor                        1
-  22:1 Gearbox                                 1
-  TB6612FNG Motor Driver                       1
-  REV 2000 Series Servo                        1
-  GoBILDA Servo Mount                          1
-  7.4 V, 1500 mAh Li-ion Battery                    1
-  5 V 3 A Buck Converter                       1
-  USB Buck Converter                           1
-  BNO055 IMU                                   1
-  IR Sensors                                   4
-  VEX Limit Switches                           2
-  LEGO Technic Parts                    Multiple
-  3D Printed Parts                        Custom
-
+| Component | Quantity |
+|---|---:|
+| Raspberry Pi 4B 4GB | 1 |
+| Raspberry Pi Camera Module 3 Wide | 1 |
+| D360 Brushed DC Motor | 1 |
+| 22:1 Gearbox | 1 |
+| TB6612FNG Motor Driver | 1 |
+| REV 2000 Series Servo | 1 |
+| GoBILDA Servo Mount | 1 |
+| 7.4 V, 1500 mAh Li-ion Battery | 1 |
+| 5 V 3 A Buck Converter | 1 |
+| USB Buck Converter | 1 |
+| BNO055 IMU | 1 |
+| IR Sensors | 4 |
+| VEX Limit Switches | 2 |
+| LEGO Technic Parts | Multiple |
+| 3D Printed Parts | Custom |
 ------------------------------------------------------------------------
-
-# Repository Structure
-
-The repository is organised so that another team can understand both the
-final robot and the engineering process.
-
-``` text
-BroCode/
-│
-├── README.md
-│
-├── Hardware/
-│   ├── Hardware Overview.md
-│   ├── Wiring/
-│   │   ├── Wiring Diagram.png
-│   │   └── Pin Mapping.md
-│   │
-│   ├── CAD/
-│   │   ├── Robot CAD/
-│   │   ├── STEP/
-│   │   └── LEGO Studio/
-│   │
-│   ├── Robot Assembly Instructions.pdf
-│   └── Bill of Materials.xlsx
-│
-├── Software/
-│   ├── Main/
-│   ├── Computer Vision/
-│   ├── Sensors/
-│   ├── Control/
-│   ├── Obstacle/
-│   ├── Parking/
-│   └── README.md
-│
-├── Testing/
-│   ├── Mechanical Testing/
-│   ├── Electrical Testing/
-│   ├── Sensor Testing/
-│   ├── Software Testing/
-│   └── Performance/
-│
-├── Documentation/
-│   ├── Engineering Journal.pdf
-│   ├── Design Evolution/
-│   └── Photos/
-│
-└── Media/
-    ├── Robot Photos/
-    └── Driving Videos/
-```
 
 ------------------------------------------------------------------------
 
