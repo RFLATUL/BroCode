@@ -1,9 +1,11 @@
 BroCode
 ====
 
-This repository contains engineering materials of a self-driven vehicle's model participating in the WRO Future Engineers competition in the season 2022.
+This repository contains details about the design, evolution, and continuous development of our self-driving robot vehicle, built and programmed by BroCode for the Future Engineers 2026 category of the World Robot Olympiad (WRO).
 
-## Content
+.
+
+## Member Detais
 
 * `t-photos` contains 2 photos of the team (an official one and one funny photo with all team members)
 * `v-photos` contains 6 photos of the vehicle (from every side, from top and bottom)
