@@ -2374,4 +2374,4 @@ The purpose of this repository is to preserve that engineering process
 and make the final robot understandable, reproducible, and useful to
 anyone who wants to study or build upon the project.
 
-**Built. Tested. Broken. Improved. Rebuilt.**
+
