@@ -257,7 +257,7 @@ The approximate base footprint is **22 cm × 12 cm**. The camera is
 mounted approximately **26 cm above the floor**, with its optical axis
 angled approximately **10° downward from horizontal**.
 
-The stated robot mass during development was approximately **650--700
+The stated robot mass during development was approximately **800
 g**.
 
 ------------------------------------------------------------------------
