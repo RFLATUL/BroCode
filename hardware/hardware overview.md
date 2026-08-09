@@ -1,4 +1,4 @@
-  # HARDWARE OVERVIEW
+# HARDWARE OVERVIEW
 
 Detailed overview of the hardware architecture of our WRO Future Engineers robot.
 
@@ -46,7 +46,7 @@ The hardware integrates:
 - **Rear-mounted IR sensor** for additional parking feedback
 - **LEGO Medium Motor** for rear-wheel propulsion
 - **Robokits India Ultra Torque servo** for front Ackermann steering
-- **L298N motor driver**
+- **TB6612FNG motor driver**
 - **3-cell LiPo battery**
 - **LEGO Technic-based mechanical structure**
 - Custom electronics mounting and organized wiring
@@ -70,7 +70,7 @@ The Raspberry Pi is responsible for:
 - Processing BNO055 orientation data.
 - Running navigation and steering algorithms.
 - Making obstacle and track decisions.
-- Controlling the drive motor through the L298N.
+- Controlling the drive motor through the TB6612FNG.
 - Controlling the steering servo.
 - Managing the autonomous state machine.
 
@@ -86,7 +86,7 @@ The robot uses a **four-wheel chassis with rear-wheel drive and front Ackermann 
 
 A **LEGO Medium Motor** provides propulsion through the rear drivetrain.
 
-The LEGO Medium Motor is controlled electronically through the L298N motor driver. The drive system was tuned around the balance between:
+The LEGO Medium Motor is controlled electronically through the TB6612FNG motor driver. The drive system was tuned around the balance between:
 
 - Speed
 - Torque
@@ -108,7 +108,7 @@ The steering system is especially important because the camera-based navigation 
 
 ### Motor Driver
 
-The drive motor is controlled using an **L298N motor driver**.
+The drive motor is controlled using an **TB6612FNG motor driver**.
 
 The driver provides:
 
@@ -235,7 +235,7 @@ Its main purpose is to provide additional positional information during parking.
 
 The sensor is not intended to replace the camera. Instead, it provides another reference that can be used during the final parking sequence.
 
-The exact GPIO assignment for the IR input is kept in the current robot control code and is not duplicated here without verification.
+The IR sensor is connected as a GPIO input; the uploaded engineering documentation does not specify its GPIO number, so no pin number is assumed here.
 
 ---
 
@@ -314,7 +314,7 @@ The robot is arranged around three main physical areas.
 ### Centre
 
 - Raspberry Pi 4
-- L298N motor driver
+- TB6612FNG motor driver
 - Power electronics
 - BNO055 IMU
 - Main wiring
@@ -345,7 +345,7 @@ The Raspberry Pi 4 acts as the central controller.
 | Camera Module 3 | **CSI interface** |
 | Rear IR Sensor | GPIO input |
 
-The Raspberry Pi sends motor direction and PWM commands to the L298N, while GPIO 25 controls the steering servo.
+The Raspberry Pi sends motor direction and PWM commands to the TB6612FNG, while GPIO 25 controls the steering servo.
 
 The BNO055 uses the Raspberry Pi's I²C bus.
 
@@ -360,7 +360,7 @@ The camera connects directly through the CSI interface.
 | Raspberry Pi 4 | 1 | Main controller |
 | Raspberry Pi Camera Module 3 Wide | 1 | Computer vision |
 | BNO055 IMU | 1 | Heading and orientation |
-| L298N Motor Driver | 1 | Drive motor control |
+| TB6612FNG Motor Driver | 1 | Drive motor control |
 | LEGO Medium Motor | 1 | Propulsion |
 | Robokits India Ultra Torque Servo | 1 | Front steering |
 | Rear IR Sensor | 1 | Parking reference |
