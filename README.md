@@ -17,6 +17,17 @@ Our development process follows:
 
 **Design → Build → Test → Identify Problem → Analyse → Modify → Retest**
 
+![Robot visual overview](assets/robot_views.png)
+
+<table>
+<tr>
+<td align="center"><img src="assets/robot_front.png" width="220"><br><sub>Front view</sub></td>
+<td align="center"><img src="assets/robot_side.png" width="220"><br><sub>Side view</sub></td>
+<td align="center"><img src="assets/robot_top.png" width="220"><br><sub>Top view</sub></td>
+<td align="center"><img src="assets/robot_rear.png" width="220"><br><sub>Rear view</sub></td>
+</tr>
+</table>
+
 ------------------------------------------------------------------------
 
 # Table of Contents
@@ -111,33 +122,13 @@ Our development process follows:
 
 Primary responsibilities:
 
--   Software architecture
--   Python programming
--   Computer vision
--   Camera processing
--   Colour detection
--   Navigation logic
--   Steering control
--   IMU software integration
--   Obstacle detection and strategy
--   Parking logic
--   Software testing and debugging
--   GitHub documentation
+![Tanish software responsibilities](assets/team_tanish.svg)
 
 ### 2. Vihaan Kothari --- Hardware
 
 Primary responsibilities:
 
--   Mechanical design
--   LEGO Technic construction
--   Chassis development
--   Drive mechanism
--   Steering mechanism
--   Electronics integration
--   Sensor mounting
--   Wiring
--   Mechanical testing
--   Hardware modifications
+![Vihaan hardware responsibilities](assets/team_vihaan.svg)
 
 Both members contributed to the overall robot strategy, testing,
 debugging, design decisions, system integration, and development of the
@@ -165,23 +156,7 @@ accordingly.
 
 The overall control loop is:
 
-``` text
-Sensors
-   ↓
-Perception
-   ↓
-State Estimation
-   ↓
-Decision Making
-   ↓
-Control
-   ↓
-Actuation
-   ↓
-New Sensor Data
-   ↓
-Repeat
-```
+![Engineering flowchart 1](assets/01_control_loop.svg)
 
 This allows the robot to respond to the actual state of the track
 instead of replaying a predetermined route.
@@ -192,61 +167,17 @@ instead of replaying a predetermined route.
 
 Our main engineering objectives were:
 
-1.  Build a mechanically stable and predictable vehicle.
-2.  Create a reliable steering mechanism.
-3.  Balance motor torque and speed instead of maximising only one.
-4.  Keep the robot compact and lightweight.
-5.  Make the chassis modular so mechanical changes could be made
-    quickly.
-6.  Use computer vision as the primary source of environmental
-    information.
-7.  Use the IMU and IR sensors as complementary feedback.
-8.  Create a reliable power distribution system.
-9.  Build modular software so individual systems could be tested
-    independently.
-10. Document the final robot sufficiently for another team to understand
-    and reproduce it.
+![Engineering objectives](assets/engineering_objectives.svg)
 
 ------------------------------------------------------------------------
+
+# Overall Robot Architecture------------------------------------------------------------------------
 
 # Overall Robot Architecture
 
 The robot is divided into five closely connected subsystems:
 
-``` text
-                    ┌─────────────────────┐
-                    │   Raspberry Pi 4B   │
-                    │   Main Controller   │
-                    └──────────┬──────────┘
-                               │
-             ┌─────────────────┼─────────────────┐
-             │                 │                 │
-             ↓                 ↓                 ↓
-       Camera System       BNO055 IMU       IR Sensors
-             │                 │                 │
-             └─────────────────┼─────────────────┘
-                               ↓
-                     Perception / Fusion
-                               ↓
-                       Decision / FSM
-                               ↓
-                     Steering + Speed
-                               ↓
-              ┌─────────────────────────┐
-              │       Actuators         │
-              │                         │
-              │ Drive Motor + Gearbox   │
-              │ Steering Servo          │
-              └─────────────────────────┘
-
-Battery
-   ↓
-Power Distribution
-   ↓
-Voltage Regulation
-   ↓
-Raspberry Pi / Sensors / Electronics
-```
+![Engineering flowchart 2](assets/02_architecture.svg)
 
 The systems are not independent. Camera position affects the field of
 view available to the software, steering geometry affects the
@@ -275,10 +206,7 @@ structural parts.
 
 The mechanical design was based on three requirements:
 
--   **Rigidity** --- the chassis should not flex enough to change
-    steering geometry.
--   **Compactness** --- the robot should remain small and manoeuvrable.
--   **Modularity** --- components should be easy to modify and repair.
+![Mechanical requirements](assets/mechanical_requirements.svg)
 
 The approximate base footprint is **22 cm × 12 cm**. The camera is
 mounted approximately **26 cm above the floor**, with its optical axis
@@ -291,6 +219,10 @@ g**.
 
 # Mobility and Drive System
 
+<table><tr><td align="center"><img src="assets/component_lego_motor.png" width="320"><br><sub>D360 brushed DC motor + 22:1 gearbox</sub></td><td align="center"><img src="assets/component_tb6612.png" width="220"><br><sub>TB6612FNG motor driver</sub></td></tr></table>
+
+![D360 brushed DC motor and 22:1 gearbox](assets/component_lego_motor.png)
+
 The robot uses a **D360 brushed DC motor with a 22:1 gearbox** for
 propulsion.
 
@@ -299,9 +231,7 @@ while still maintaining practical speed.
 
 The basic relationship considered during motor selection was:
 
-``` text
-Wheel Torque ≈ Motor Torque × Gear Ratio × Transmission Efficiency
-```
+![Engineering flowchart 3](assets/03_torque.svg)
 
 Increasing the gear ratio increases available wheel torque but reduces
 output speed.
@@ -309,12 +239,7 @@ output speed.
 Our objective was not to select the motor with the highest advertised
 RPM or torque. We needed a combination that provided:
 
--   Useful straight-line speed
--   Sufficient acceleration
--   Reliable movement through corners
--   Enough torque to avoid stalling
--   Reasonable weight
--   Compact integration
+![Drive selection requirements](assets/drive_requirements.svg)
 
 The D360 with the 22:1 gearbox provided the most suitable balance for
 our robot.
@@ -322,6 +247,10 @@ our robot.
 ------------------------------------------------------------------------
 
 # Steering System
+
+<table><tr><td align="center"><img src="assets/component_servo.png" width="280"><br><sub>UltraTorque steering servo</sub></td><td align="center"><img src="assets/servo_crop.png" width="220"><br><sub>Steering assembly</sub></td></tr></table>
+
+![UltraTorque steering servo](assets/component_servo.png)
 
 Steering is provided by a **REV Robotics 2000 Series Dual Mode Servo**
 mounted using a GoBILDA servo frame.
@@ -336,19 +265,7 @@ can produce different physical steering angles.
 
 The steering loop is:
 
-``` text
-Camera / IMU Data
-       ↓
-Calculate Heading / Position Error
-       ↓
-Determine Steering Error
-       ↓
-Control Algorithm
-       ↓
-Servo Angle
-       ↓
-Robot Direction
-```
+![Engineering flowchart 4](assets/04_steering_loop.svg)
 
 Mechanical geometry and software parameters were tuned together because
 changing the steering geometry changes the relationship between servo
@@ -364,39 +281,15 @@ We considered several motor options.
 
 ### N20 DC Motor
 
-Advantages:
-
--   Small
--   Lightweight
--   Easy to mount
-
-Disadvantages:
-
--   Insufficient torque under the load of our final robot.
+![Motor options considered](assets/motor_options.svg)
 
 ### REV NEO 550
 
-Advantages:
-
--   High power
--   Strong performance
-
-Disadvantages:
-
--   Larger and heavier
--   Required additional control hardware
--   More complex than necessary for our design
+![Motor options considered](assets/motor_options.svg)
 
 ### LEGO Medium Motor
 
-Advantages:
-
--   Easy LEGO integration
--   Simple mounting
-
-Disadvantages:
-
--   Lower performance for our required speed and torque balance
+![Motor options considered](assets/motor_options.svg)
 
 ### Final Choice: D360 + 22:1 Gearbox
 
@@ -414,12 +307,7 @@ The LEGO chassis was designed from scratch for our robot.
 
 We selected LEGO because it provided:
 
--   High modularity
--   Fast prototyping
--   Easy repair
--   Easy component relocation
--   Strong structural elements
--   Simple mechanical iteration
+![Why we chose LEGO](assets/lego_benefits.svg)
 
 During development, being able to change the chassis quickly was more
 valuable to us than using a completely fixed custom frame.
@@ -436,15 +324,7 @@ chassis, and steering system.
 
 We evaluated:
 
--   Straight-line stability
--   Acceleration behaviour
--   Turning behaviour
--   Steering response
--   Mechanical play
--   Motor mounting stability
--   Chassis rigidity
--   Wheel alignment
--   Camera mounting stability
+![Mechanical testing](assets/mech_tests.svg)
 
 When inconsistent behaviour appeared, we first checked for a mechanical
 cause before changing software parameters.
@@ -456,6 +336,8 @@ instability.
 
 # Power & Sensor Architecture
 
+<table><tr><td align="center"><img src="assets/component_battery.png" width="250"><br><sub>7.4 V rechargeable battery</sub></td><td align="center"><img src="assets/component_buck.png" width="220"><br><sub>5 V buck converter</sub></td><td align="center"><img src="assets/component_pcb.png" width="250"><br><sub>Custom electronics board</sub></td></tr></table>
+
 The robot uses a **7.4 V, 1500 mAh Li-ion rechargeable battery pack**.
 
 The battery feeds the power distribution system, which provides the
@@ -463,21 +345,7 @@ appropriate supply to the motor system and regulated electronics.
 
 The main architecture is:
 
-``` text
-7.4 V Battery
-     │
-     ├──────────────→ Motor Driver → Drive Motor
-     │
-     ↓
-Buck Converter
-     │
-     └──────────────→ 5 V Electronics
-                         │
-                         ├── Raspberry Pi
-                         ├── Camera
-                         ├── Sensors
-                         └── Other peripherals
-```
+![Engineering flowchart 5](assets/05_power_arch.svg)
 
 The Raspberry Pi requires a stable regulated supply because voltage
 drops can cause instability or unexpected resets.
@@ -489,27 +357,16 @@ treated separately.
 
 # Power Budget and Distribution
 
+![5 V buck converter and custom electronics](assets/component_buck.png)
+![Custom electronics board](assets/component_pcb.png)
+
 The major electrical loads are:
 
-  Component         Supply / Path            Function
-  ----------------- ------------------------ -----------------------
-  Raspberry Pi 4B   5 V regulated            Main processing
-  Camera            Raspberry Pi supply      Computer vision
-  BNO055            Regulated logic supply   Orientation feedback
-  IR sensors        Regulated logic supply   Close-range detection
-  Limit switches    GPIO                     Physical feedback
-  Motor driver      Battery-side supply      Motor control
-  Drive motor       Battery-side supply      Propulsion
-  Steering servo    Regulated supply         Steering
+![Power distribution table](assets/table_power.svg)
 
 The main power risks identified were:
 
--   Battery voltage drop
--   Motor current spikes
--   Raspberry Pi brownouts
--   Electrical noise
--   Loose connections
--   Insufficient regulator capacity
+![Power risks](assets/power_risks.svg)
 
 Power connections were secured, regulated supplies were used for
 sensitive electronics, and the wiring was organised to reduce accidental
@@ -523,31 +380,20 @@ competition operation.
 
 # Sensor Architecture
 
+<table><tr><td align="center"><img src="assets/component_camera.png" width="220"><br><sub>Raspberry Pi Camera Module 3 Wide</sub></td><td align="center"><img src="assets/component_imu.png" width="220"><br><sub>BNO055 IMU</sub></td><td align="center"><img src="assets/component_ir.png" width="220"><br><sub>IR sensors</sub></td><td align="center"><img src="assets/component_limit.png" width="220"><br><sub>VEX limit switches</sub></td></tr></table>
+
+![Robot sensor overview](assets/robot_front_card.png)
+
 The robot uses multiple sensors because no single sensor provides
 reliable information for every part of the challenge.
 
 The main sensing systems are:
 
--   **Raspberry Pi Camera Module 3 Wide**
--   **BNO055 IMU**
--   **4 IR sensors**
--   **2 VEX limit switches**
+![Primary sensing systems](assets/sensor_list.svg)
 
 Each sensor has a defined role.
 
-  -----------------------------------------------------------------------
-  Sensor                              Main Purpose
-  ----------------------------------- -----------------------------------
-  Pi Camera                           Vision, track interpretation,
-                                      obstacle recognition, parking
-
-  BNO055 IMU                          Orientation and heading feedback
-
-  IR Sensors                          Short-range detection and parking
-                                      alignment
-
-  Limit Switches                      Physical fail-safe feedback
-  -----------------------------------------------------------------------
+![Sensor role table](assets/table_sensor.svg)
 
 The camera is the primary perception sensor. The IMU provides
 orientation information, while the IR sensors provide close-range
@@ -559,36 +405,35 @@ feedback where visual positioning becomes less reliable.
 
 ## Camera
 
+![Raspberry Pi Camera Module 3 Wide](assets/component_camera.png)
+
 The camera provides substantially more environmental information than a
 single distance sensor.
 
 It can be used for:
 
--   Wall detection
--   Lane interpretation
--   Coloured obstacle recognition
--   Marker detection
--   Parking-area detection
+![Sensor functions](assets/camera_uses.svg)
 
 Its main limitation is sensitivity to lighting, exposure, and colour
 thresholds.
 
 ## BNO055 IMU
 
+![BNO055 IMU](assets/component_imu.png)
+
 The BNO055 provides orientation information using internal sensor
 fusion.
 
 It is useful for:
 
--   Heading correction
--   Turn stabilisation
--   Alignment
--   Parking
+![Sensor functions](assets/imu_uses.svg)
 
 Its readings can still be affected by calibration and the robot's
 mounting environment.
 
 ## IR Sensors
+
+![IR sensors](assets/component_ir.png)
 
 IR sensors are simple and fast for short-range detection.
 
@@ -600,12 +445,18 @@ information than the camera.
 
 ## Limit Switches
 
+![VEX limit switches](assets/component_limit.png)
+
 Limit switches provide simple physical feedback and an additional
 fail-safe if the robot unexpectedly interacts with an object.
 
 ------------------------------------------------------------------------
 
 # Sensor Placement
+
+<img src="assets/sensor_placement.png" alt="Sensor placement on robot" width="850">
+
+![Sensor placement on the robot](assets/sensor_placement.png)
 
 Sensor placement was based on the geometry of the task rather than
 simply available space.
@@ -614,10 +465,7 @@ simply available space.
 
 The camera is:
 
--   Mounted at the front of the robot
--   Centred on the robot
--   Approximately **26 cm above the floor**
--   Pointed approximately **10° downward from horizontal**
+![Camera mount geometry](assets/camera_mount_specs.svg)
 
 The centred mounting keeps the camera coordinate system aligned with the
 robot's centreline.
@@ -660,25 +508,7 @@ colour-detection approach that was most consistent during our testing.
 
 The general processing pipeline is:
 
-``` text
-Camera Frame
-     ↓
-Image Pre-processing
-     ↓
-Colour Space Conversion
-     ↓
-Colour Threshold
-     ↓
-Binary Mask
-     ↓
-Noise Filtering
-     ↓
-Relevant Region Detection
-     ↓
-Position / Colour Classification
-     ↓
-Navigation Decision
-```
+![Engineering flowchart 6](assets/06_vision_pipeline.svg)
 
 Thresholds were tuned using real camera data instead of relying only on
 theoretical colour values.
@@ -713,43 +543,7 @@ replacement for visual information.
 
 Sensor testing was performed independently before full-system testing.
 
-### Camera
-
-We tested:
-
--   Colour separation
--   False detections
--   Lighting variation
--   Detection distance
--   Region-of-interest size
--   Stability of detected positions
-
-### BNO055
-
-We tested:
-
--   Heading consistency
--   Stationary behaviour
--   Response during turns
--   Repeatability after restarting
-
-### IR Sensors
-
-We tested:
-
--   Short-range response
--   Detection consistency
--   Parking alignment
--   False readings
-
-### Limit Switches
-
-We tested:
-
--   Physical activation
--   Electrical response
--   Software response
--   Recovery behaviour
+![Sensor testing](assets/sensor_tests.svg)
 
 Testing sensors independently allowed us to determine whether a failure
 originated from sensing, software, or the physical system.
@@ -762,40 +556,11 @@ The robot software is modular rather than being one large program.
 
 The main software layers are:
 
-``` text
-Hardware Interface
-       ↓
-Sensor Acquisition
-       ↓
-Perception
-       ↓
-State Estimation
-       ↓
-Navigation
-       ↓
-Control
-       ↓
-Motor / Servo Output
-```
+![Software architecture](assets/07_software_arch.svg)
 
 The main functional modules are:
 
-1.  Camera acquisition
-2.  Image processing
-3.  Colour detection
-4.  Wall / lane detection
-5.  IMU interface
-6.  IR sensor interface
-7.  Steering controller
-8.  Speed control
-9.  Lap counting
-10. Obstacle recognition
-11. Obstacle-side decision
-12. Obstacle avoidance
-13. Parking detection
-14. Parking alignment
-15. Recovery handling
-16. Main state machine
+![Software module structure](assets/08_software_structure.svg)
 
 This structure makes it possible to test and modify individual systems
 without rewriting the complete program.
@@ -806,37 +571,7 @@ without rewriting the complete program.
 
 The intended software organisation is:
 
-``` text
-Software/
-│
-├── Main/
-│   └── Main Control Program
-│
-├── Computer Vision/
-│   ├── Camera Input
-│   ├── Colour Detection
-│   ├── Wall Detection
-│   └── Obstacle Detection
-│
-├── Sensors/
-│   ├── BNO055
-│   ├── IR Sensors
-│   └── Limit Switches
-│
-├── Control/
-│   ├── Steering
-│   └── Speed
-│
-├── Obstacle/
-│   ├── Recognition
-│   ├── Side Decision
-│   └── Avoidance
-│
-└── Parking/
-    ├── Detection
-    ├── Alignment
-    └── Final Positioning
-```
+![Engineering flowchart 8](assets/08_software_structure.svg)
 
 Each module has a defined responsibility, making debugging and future
 changes easier.
@@ -848,48 +583,7 @@ changes easier.
 The master state machine provides the overall structure of the robot's
 behaviour.
 
-``` text
-                 ┌──────────────┐
-                 │    START     │
-                 └──────┬───────┘
-                        ↓
-                 ┌──────────────┐
-                 │ INITIALISE   │
-                 └──────┬───────┘
-                        ↓
-                 ┌──────────────┐
-                 │    DRIVE     │
-                 └──────┬───────┘
-                        ↓
-             ┌──────────┴──────────┐
-             ↓                     ↓
-       ┌───────────┐         ┌──────────────┐
-       │ OBSTACLE  │         │   RECOVERY   │
-       │ DETECTED  │         │              │
-       └─────┬─────┘         └──────┬───────┘
-             ↓                      │
-       ┌───────────┐                │
-       │  AVOID    │────────────────┘
-       └─────┬─────┘
-             ↓
-       ┌──────────────┐
-       │ LAP COMPLETE │
-       └──────┬───────┘
-              ↓
-       ┌──────────────┐
-       │ THREE LAPS?  │
-       └──────┬───────┘
-          NO  │   YES
-              │
-              ↓
-        ┌─────────────┐
-        │   PARKING   │
-        └──────┬──────┘
-               ↓
-        ┌─────────────┐
-        │    STOP     │
-        └─────────────┘
-```
+![Engineering flowchart 9](assets/09_master_fsm.svg)
 
 The state machine prevents unrelated behaviours from interfering with
 one another.
@@ -901,6 +595,8 @@ completing its laps.
 
 # Computer Vision
 
+<img src="assets/computer_vision_tasks.svg" alt="Computer vision tasks" width="850">
+
 Computer vision is one of the main parts of our robot.
 
 The Raspberry Pi Camera Module 3 Wide provides the visual input and
@@ -908,12 +604,7 @@ OpenCV is used to process the images.
 
 The main vision tasks are:
 
--   Wall detection
--   Lane interpretation
--   Colour recognition
--   Obstacle recognition
--   Marker detection
--   Parking detection
+![Computer vision tasks](assets/computer_vision_tasks.svg)
 
 Regions of interest are used where appropriate to reduce unnecessary
 processing and focus the algorithm on areas relevant to navigation.
@@ -934,21 +625,7 @@ the most consistent results during our testing.
 
 The process is:
 
-``` text
-Image
- ↓
-Colour Space Conversion
- ↓
-Colour Threshold
- ↓
-Binary Mask
- ↓
-Noise Filtering
- ↓
-Contour / Region Detection
- ↓
-Centroid / Position
-```
+![Engineering flowchart 10](assets/10_colour_pipeline.svg)
 
 The detected colour region is then converted into information that can
 be used by the navigation system.
@@ -965,13 +642,7 @@ A target position is generated from the detected wall or lane geometry.
 The difference between the target position and the detected position
 becomes the steering error.
 
-``` text
-Target Position
-      -
-Detected Position
-      =
-Steering Error
-```
+![Engineering flowchart 11](assets/11_steering_error.svg)
 
 The controller converts this error into a steering command.
 
@@ -992,9 +663,7 @@ smaller.
 
 The basic proportional relationship is:
 
-``` text
-Steering Output = Kp × Error
-```
+![Engineering flowchart 12](assets/12_proportional_control.svg)
 
 A proportional controller was selected because our primary requirement
 was fast, predictable correction.
@@ -1024,20 +693,7 @@ times.
 
 The logic is:
 
-``` text
-Marker Detected
-      ↓
-Is Detection New?
-   /       \
- NO         YES
- ↓           ↓
-Ignore    Count Lap
-             ↓
-       Wait for Marker
-       to Leave Region
-             ↓
-       Ready for Next Lap
-```
+![Engineering flowchart 13](assets/13_lap_debounce.svg)
 
 This prevents a single physical marker from producing multiple lap
 counts.
@@ -1054,23 +710,7 @@ requirements.
 
 The obstacle pipeline is:
 
-``` text
-Camera
-  ↓
-Colour Space Conversion
-  ↓
-Red / Green Masks
-  ↓
-Contour Detection
-  ↓
-Obstacle Position
-  ↓
-Colour Classification
-  ↓
-Required Side
-  ↓
-Avoidance Path
-```
+![Engineering flowchart 14](assets/14_obstacle_pipeline.svg)
 
 The robot uses the detected obstacle colour as an input to the
 navigation decision rather than treating colour detection as an isolated
@@ -1098,23 +738,7 @@ state and visible track geometry.
 
 The decision process is:
 
-``` text
-Obstacle Detected
-       ↓
-Identify Colour
-       ↓
-Determine Required Side
-       ↓
-Check Current Robot Position
-       ↓
-Calculate Safe Path
-       ↓
-Change Steering Target
-       ↓
-Avoid Obstacle
-       ↓
-Return to Normal Path
-```
+![Engineering flowchart 15](assets/15_obstacle_decision.svg)
 
 This allows the robot to respond to obstacle position rather than
 relying on fixed obstacle coordinates.
@@ -1160,19 +784,7 @@ positions.
 Instead, it continuously detects visible wall geometry and adjusts its
 path.
 
-``` text
-Detect Wall
-    ↓
-Estimate Robot Position
-    ↓
-Calculate Desired Path
-    ↓
-Steer
-    ↓
-Re-detect Wall
-    ↓
-Correct
-```
+![Engineering flowchart 16](assets/16_open_strategy.svg)
 
 This allows the navigation system to adapt to different track layouts.
 
@@ -1187,34 +799,11 @@ system as simple as possible.
 
 The current parking development approach combines:
 
--   Camera detection
--   IMU orientation
--   IR feedback
--   Controlled steering
+![Parking inputs](assets/parking_inputs.svg)
 
 The intended sequence is:
 
-``` text
-Three Laps Complete
-       ↓
-Identify Parking Area
-       ↓
-Align With Parking Direction
-       ↓
-Reduce Speed
-       ↓
-Use Camera + IMU
-       ↓
-Use IR for Close-Range Confirmation
-       ↓
-Correct Orientation
-       ↓
-Enter Parking Space
-       ↓
-Final Alignment
-       ↓
-STOP
-```
+![Engineering flowchart 17](assets/17_parking_strategy.svg)
 
 The camera provides the main environmental information while the IMU and
 IR sensors provide additional feedback during the final alignment stage.
@@ -1289,21 +878,7 @@ verification step.
 
 Our development cycle was:
 
-``` text
-Build
- ↓
-Test
- ↓
-Measure
- ↓
-Identify Failure
- ↓
-Change One Variable
- ↓
-Retest
- ↓
-Compare
-```
+![Engineering flowchart 18](assets/18_test_cycle.svg)
 
 Changing one major variable at a time made it easier to determine
 whether a change actually improved the robot.
@@ -1314,38 +889,7 @@ whether a change actually improved the robot.
 
 Testing was divided into:
 
-### Mechanical Testing
-
--   Chassis rigidity
--   Wheel alignment
--   Steering response
--   Motor mounting
--   Turning behaviour
-
-### Electrical Testing
-
--   Battery output
--   Regulated voltage
--   Motor operation
--   Raspberry Pi stability
--   Sensor power
-
-### Sensor Testing
-
--   Camera detection
--   Colour thresholds
--   IMU orientation
--   IR response
--   Limit switches
-
-### Software Testing
-
--   State transitions
--   Steering control
--   Lap counting
--   Obstacle recognition
--   Parking logic
--   Recovery states
+![Testing methodology](assets/test_categories.svg)
 
 ### Full-System Testing
 
@@ -1362,24 +906,11 @@ improvements only by appearance.
 
 The main performance metrics were:
 
--   Lap completion rate
--   Lap time
--   Number of obstacle-avoidance successes
--   Number of obstacle contacts
--   Parking success rate
--   Steering stability
--   Number of recovery events
--   Number of false obstacle detections
--   Number of incorrect lap counts
--   Electrical stability during continuous operation
+![Testing metrics](assets/performance_metrics.svg)
 
 For software tuning, we looked particularly at the trade-off between:
 
-``` text
-Fast Response
-      ↕
-Stable Response
-```
+![Engineering flowchart 19](assets/19_response_tradeoff.svg)
 
 A parameter was not considered better simply because it increased speed.
 The objective was to improve speed while maintaining reliable
@@ -1394,14 +925,7 @@ the robot.
 
 The process was:
 
-1.  Capture an image.
-2.  Convert it to the selected colour space.
-3.  Apply an initial colour range.
-4.  Observe the detected region.
-5.  Adjust thresholds.
-6.  Test under different lighting conditions.
-7.  Verify that the detected region corresponds to the intended object.
-8.  Retest on the physical track.
+![Colour threshold testing](assets/colour_test_steps.svg)
 
 This reduced the chance that the robot would depend on one ideal
 lighting condition.
@@ -1435,11 +959,7 @@ speed.
 
 Obstacle testing was performed by changing:
 
--   Obstacle colour
--   Obstacle position
--   Robot approach angle
--   Robot speed
--   Distance from obstacle
+![Obstacle testing](assets/obstacle_test_vars.svg)
 
 The objective was to verify that the software did not simply recognise
 the colour but actually used it to make the correct navigation decision.
@@ -1455,10 +975,7 @@ lap event.
 
 The debounce logic was therefore tested by:
 
--   Approaching the marker slowly
--   Approaching quickly
--   Remaining near the marker
--   Passing the marker multiple times
+![Lap testing](assets/lap_test_vars.svg)
 
 The final system accepts a new lap only after the previous detection has
 cleared.
@@ -1471,12 +988,7 @@ Parking was tested separately from normal driving.
 
 The main parameters considered were:
 
--   Entry alignment
--   Robot heading
--   Steering angle
--   IR sensor response
--   Final position
--   Final orientation
+![Parking testing](assets/parking_test_vars.svg)
 
 The parking algorithm was adjusted through repeated attempts rather than
 relying on one successful run.
@@ -1496,23 +1008,7 @@ observed behaviour.
 
 A simplified development sequence was:
 
-``` text
-Basic steering
-      ↓
-Improved wall detection
-      ↓
-Proportional steering
-      ↓
-Speed / steering coordination
-      ↓
-Obstacle recognition
-      ↓
-Obstacle-side logic
-      ↓
-Recovery states
-      ↓
-Parking integration
-```
+![Engineering flowchart 20](assets/20_software_iterations.svg)
 
 Each stage added functionality while preserving previously working
 behaviour.
@@ -1526,43 +1022,11 @@ mechanical, electrical, sensor, and software projects.
 
 For example:
 
-``` text
-Motor
- ↓
-Vehicle Speed
- ↓
-Camera Motion
- ↓
-Image Processing
- ↓
-Steering Error
- ↓
-Servo Command
- ↓
-Vehicle Direction
- ↓
-New Camera Image
-```
+![Engineering flowchart 21](assets/21_sensor_feedback.svg)
 
 Similarly:
 
-``` text
-Battery
- ↓
-Voltage Regulation
- ↓
-Raspberry Pi
- ↓
-Camera Processing
- ↓
-Navigation
- ↓
-Motor Command
- ↓
-Motor Current
- ↓
-Battery Load
-```
+![Engineering flowchart 22](assets/22_power_feedback.svg)
 
 A change in one subsystem can therefore affect another subsystem.
 
@@ -1574,17 +1038,7 @@ This interaction was considered when making design decisions.
 
 The major constraints we worked under were:
 
--   Limited robot size
--   Limited weight
--   Limited battery capacity
--   Limited processing resources
--   Real-time camera processing
--   Mechanical space
--   Steering precision
--   Competition time
--   Changing track geometry
--   Random obstacle placement
--   Autonomous operation
+![Engineering constraints](assets/constraints.svg)
 
 Instead of optimising one subsystem independently, we looked for
 solutions that worked within the complete system.
@@ -1647,76 +1101,27 @@ steering.
 
 Driving tests identified issues with:
 
--   Torque
--   Steering consistency
--   Sensor placement
--   Camera visibility
--   Wiring organisation
+![Intermediate design issues](assets/design_problems.svg)
 
 ### Improved Design
 
 We introduced:
 
--   Gear reduction
--   More stable motor mounting
--   Improved steering mounting
--   Better sensor positioning
--   Custom printed components
--   Electronics protection
--   More structured software
+![Improved design features](assets/design_improvements.svg)
 
 ### Final Design
 
 The final system combines:
 
--   LEGO chassis
--   Custom 3D-printed components
--   D360 + 22:1 gearbox
--   REV servo steering
--   Raspberry Pi 4B
--   Pi Camera Module 3 Wide
--   BNO055 IMU
--   IR sensors
--   Limit switches
--   Regulated power distribution
--   Modular software architecture
+![Final design](assets/final_design.svg)
+
+![Final system components](assets/final_system.svg)
 
 ------------------------------------------------------------------------
 
 # Problems → Solutions → Results
 
-  -----------------------------------------------------------------------
-  Problem                 Solution                Result
-  ----------------------- ----------------------- -----------------------
-  Insufficient torque     22:1 gearbox            Better drivetrain
-                                                  response
-
-  Camera saw electronics  White electronics cover Cleaner visual input
-  as track features
-
-  Chassis changes were    LEGO modular structure  Faster iteration
-  difficult
-
-  Motor mounting movement Custom 3D-printed mount Improved alignment
-
-  Steering instability    Improved mounting and   More predictable
-                          software tuning         steering
-
-  False colour detections Colour-space            More reliable detection
-                          thresholding and
-                          filtering
-
-  Repeated lap detection  Debouncing              Correct lap counting
-
-  Parking alignment       IMU orientation feedback       More controlled parking
-  uncertainty
-
-  Wiring complexity       Organised electronics   Cleaner connections
-                          board
-
-  Mechanical flex         Structural              More consistent
-                          reinforcement           steering
-  -----------------------------------------------------------------------
+![Problems, solutions and results](assets/table_problems.svg)
 
 ------------------------------------------------------------------------
 
@@ -1744,58 +1149,7 @@ problem.
 
 We considered the following major failure modes:
 
-  -----------------------------------------------------------------------
-  Failure Mode      Cause             Effect            Mitigation
-  ----------------- ----------------- ----------------- -----------------
-  Raspberry Pi      Motor current     Software stops    Regulated power
-  brownout          spike                               system
-
-  Motor stall       Insufficient      Robot stops       Gear reduction
-                    torque
-
-  Camera false      Electronics /     Wrong navigation  White cover +
-  detection         lighting                            filtering
-
-  Steering          Excessive gain    Robot loses path  Parameter tuning
-  oscillation
-
-  Missed obstacle   Poor colour       Incorrect route   Colour testing +
-                    detection                           filtering
-
-  Repeated lap      Same marker       Incorrect state   Debouncing
-  count             detected
-                    repeatedly
-
-  IMU error         Calibration /     Heading error     Calibration +
-                    interference                        visual feedback
-
-  IR false reading  Surface /         Parking error     Multi-sensor
-                    distance                            interpretation
-                    variation
-
-  Loose wire        Vibration         Sensor / motor    Secured and
-                                      failure           organised wiring
-
-  Mechanical flex   Chassis movement  Steering          Structural
-                                      inconsistency     reinforcement
-
-  Sensor failure    Hardware fault    Missing feedback  Redundancy /
-                                                        recovery
-  -----------------------------------------------------------------------
-
-------------------------------------------------------------------------
-
-# Risk Mitigation
-
-Our risk mitigation strategy follows:
-
-``` text
-Identify Failure
-      ↓
-Reduce Probability
-      ↓
-Provide Recovery
-```
+![Risk and failure analysis](assets/table_risk.svg)
 
 For example, camera failure cannot always be prevented, so the software
 avoids making an extreme decision based on one bad frame.
@@ -1810,46 +1164,7 @@ problems.
 
 # Final System Architecture
 
-``` text
-                         ┌─────────────────┐
-                         │ Raspberry Pi 4B │
-                         └────────┬────────┘
-                                  │
-              ┌───────────────────┼───────────────────┐
-              │                   │                   │
-              ↓                   ↓                   ↓
-        Pi Camera 3          BNO055 IMU          IR Sensors
-              │                   │                   │
-              └───────────────────┼───────────────────┘
-                                  ↓
-                         Sensor Processing
-                                  ↓
-                        Computer Vision
-                                  ↓
-                         State Estimation
-                                  ↓
-                         Master FSM
-                                  ↓
-                    ┌─────────────┴─────────────┐
-                    ↓                           ↓
-              Steering Control             Speed Control
-                    ↓                           ↓
-              REV Servo                  TB6612FNG
-                                                ↓
-                                           D360 Motor
-                                                ↓
-                                             Gearbox
-                                                ↓
-                                             Wheels
-
-Battery
-  ↓
-Power Distribution
-  ↓
-Buck Regulation
-  ↓
-Pi + Sensors + Electronics
-```
+![Engineering flowchart 24](assets/24_final_arch.svg)
 
 This architecture separates perception, decision-making, and actuation
 while maintaining feedback between them.
@@ -1858,49 +1173,19 @@ while maintaining feedback between them.
 
 # Final Hardware Specifications
 
-  System                   Final Component
-  ------------------------ --------------------------------------
-  Main Controller          Raspberry Pi 4B 4GB
-  Camera                   Raspberry Pi Camera Module 3 Wide
-  Drive Motor              D360 Brushed DC Motor
-  Gearbox                  22:1
-  Motor Driver             TB6612FNG
-  Steering                 REV Robotics 2000 Series Servo
-  IMU                      BNO055
-  IR Sensors               4
-  Limit Switches           2
-  Battery                  7.4 V, 1500 mAh Li-ion
-  Main Regulation          5 V 3 A Buck Converter
-  Chassis                  LEGO Technic + 3D Printed
-  Approx. Weight           650--700 g
-  Approx. Base Footprint   22 × 12 cm
-  Camera Height            Approx. 26 cm above floor
-  Camera Angle             Approx. 10° downward from horizontal
+![Final hardware specifications](assets/table_specs.svg)
 
 ------------------------------------------------------------------------
+
+## Bill of Materials------------------------------------------------------------------------
 
 ## Bill of Materials
 
-| Component | Quantity |
-|---|---:|
-| Raspberry Pi 4B 4GB | 1 |
-| Raspberry Pi Camera Module 3 Wide | 1 |
-| D360 Brushed DC Motor | 1 |
-| 22:1 Gearbox | 1 |
-| TB6612FNG Motor Driver | 1 |
-| REV 2000 Series Servo | 1 |
-| GoBILDA Servo Mount | 1 |
-| 7.4 V, 1500 mAh Li-ion Battery | 1 |
-| 5 V 3 A Buck Converter | 1 |
-| USB Buck Converter | 1 |
-| BNO055 IMU | 1 |
-| IR Sensors | 4 |
-| VEX Limit Switches | 2 |
-| LEGO Technic Parts | Multiple |
-| 3D Printed Parts | Custom |
-------------------------------------------------------------------------
+![Bill of Materials](assets/table_bom.svg)
 
 ------------------------------------------------------------------------
+
+# Reproducibility & GitHub Quality
 
 # Reproducibility & GitHub Quality
 
@@ -1909,17 +1194,7 @@ the documentation provided in this repository.
 
 The documentation covers:
 
--   Hardware overview
--   Bill of materials
--   CAD files
--   LEGO assembly information
--   Wiring diagram
--   Pin mapping
--   Sensor placement
--   Software source code
--   Software module descriptions
--   Testing workflow
--   Engineering decisions
+![Reproducibility checklist](assets/reproducibility.svg)
 
 The mechanical documentation explains how the chassis and custom
 components fit together.
@@ -1942,23 +1217,7 @@ The software is intended to run on the Raspberry Pi.
 
 The basic setup process is:
 
-``` text
-Clone Repository
-      ↓
-Install Python Dependencies
-      ↓
-Connect Camera
-      ↓
-Connect Sensors
-      ↓
-Verify GPIO / I²C
-      ↓
-Run Sensor Tests
-      ↓
-Run Camera Test
-      ↓
-Run Navigation Program
-```
+![Engineering flowchart 25](assets/25_setup.svg)
 
 The software is divided into modules so that individual components can
 be tested before running the complete autonomous program.
@@ -1975,17 +1234,7 @@ commits.
 
 Examples of useful commit messages include:
 
-``` text
-Initial hardware architecture
-Initial autonomous control system
-Camera and colour detection added
-Steering controller improved
-Obstacle recognition added
-Parking system added
-Sensor calibration update
-Final software tuning
-Final documentation
-```
+![Version control workflow](assets/26_commits.svg)
 
 A useful commit should communicate what changed and, where relevant, why
 it changed.
@@ -1999,18 +1248,7 @@ only presenting a final code dump.
 
 Our standard testing workflow is:
 
-``` text
-1. Define the problem
-2. Create a test
-3. Run the current design
-4. Record the behaviour
-5. Identify the likely cause
-6. Change the relevant subsystem
-7. Run the same test again
-8. Compare the result
-9. Keep or revert the change
-10. Document the result
-```
+![Testing workflow](assets/27_testing_workflow.svg)
 
 This prevents random tuning and makes engineering decisions traceable.
 
@@ -2053,19 +1291,11 @@ incorrectly interpret electronics as environmental features.
 
 These decisions follow the engineering chain:
 
-``` text
-Problem
-  ↓
-Possible Solutions
-  ↓
-Testing
-  ↓
-Trade-off
-  ↓
-Engineering Decision
-```
+![Evidence-based engineering decision chain](assets/28_decision_chain.svg)
 
 ------------------------------------------------------------------------
+
+# Final Performance Validation------------------------------------------------------------------------
 
 # Final Performance Validation
 
@@ -2076,37 +1306,7 @@ This is the main recorded performance figure currently available to us; other pe
 The final robot is evaluated across the same major areas used during
 development.
 
-### Mechanical
-
--   Stable chassis
--   Consistent steering
--   Reliable drivetrain
--   Secure component mounting
-
-### Electrical
-
--   Stable regulated power
--   Reliable motor operation
--   Reliable sensor communication
--   Organised wiring
-
-### Sensors
-
--   Reliable camera detection
--   Calibrated IMU
--   Functional IR feedback
--   Functional physical switches
-
-### Software
-
--   Modular architecture
--   Master state machine
--   Computer vision
--   Steering control
--   Obstacle strategy
--   Lap counting
--   Parking logic
--   Recovery handling
+![Final performance metrics](assets/performance_metrics.svg)
 
 ### Full System
 
@@ -2118,22 +1318,18 @@ success.
 
 # Final Robot
 
+<img src="assets/final_design.svg" alt="Final robot architecture" width="850">
+
+<table><tr><td align="center"><img src="assets/robot_front_card.png" width="240"><br><sub>Front</sub></td><td align="center"><img src="assets/robot_side_card.png" width="240"><br><sub>Side</sub></td><td align="center"><img src="assets/robot_top_card.png" width="240"><br><sub>Top</sub></td><td align="center"><img src="assets/robot_rear_card.png" width="240"><br><sub>Rear</sub></td></tr></table>
+
+![Final robot views](assets/robot_views.png)
+
 Our final robot is the result of repeated mechanical, electrical,
 sensor, and software iterations.
 
 The final design combines:
 
--   A modular LEGO Technic chassis
--   Custom 3D-printed components
--   D360 + 22:1 geared drivetrain
--   REV servo steering
--   Raspberry Pi 4B
--   Raspberry Pi Camera Module 3 Wide
--   BNO055 IMU
--   IR sensors
--   Limit switches
--   Regulated power distribution
--   Modular autonomous software
+![Final system components](assets/final_system.svg)
 
 The most important feature of the design is the interaction between
 these systems.
@@ -2161,14 +1357,7 @@ once is different from engineering a robot that works repeatedly.
 
 Our development therefore focused on:
 
--   Understanding why failures occurred
--   Testing individual subsystems
--   Making changes based on evidence
--   Considering mechanical and software interactions
--   Designing for repairability
--   Reducing single points of failure
--   Documenting decisions
--   Retesting after modifications
+![Engineering philosophy](assets/engineering_philosophy.svg)
 
 Whenever possible, we followed:
 
