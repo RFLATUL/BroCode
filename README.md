@@ -1,1055 +1,2142 @@
-BroCode
+# BroCode
 
-This repository contains the engineering documentation, software,hardware design, testing process, and development history of ourautonomous robot for the WRO Future Engineers 2026 category.
+This repository contains the engineering documentation, software,
+hardware design, testing process, and development history of our
+autonomous robot for the **WRO Future Engineers 2026** category.
 
-Our robot was developed with a focus on autonomous navigation, computervision, mechanical stability, controlled steering, obstacle management,parking, reliability, and repeatable performance.
+Our robot was developed with a focus on autonomous navigation, computer
+vision, mechanical stability, controlled steering, obstacle management,
+parking, reliability, and repeatable performance.
 
-The purpose of this repository is not only to show the final robot, butalso to document why we made our major engineering decisions, whatalternatives we considered, what problems we encountered, how we testedthem, and how the design evolved.
+The purpose of this repository is not only to show the final robot, but
+also to document **why** we made our major engineering decisions, what
+alternatives we considered, what problems we encountered, how we tested
+them, and how the design evolved.
 
 Our development process follows:
 
-Design → Build → Test → Identify Problem → Analyse → Modify → Retest
-
-
-
-<table>
-<tr>
-<td align="center"><img src="assets/robot_front.png" width="220"><br><sub>Front view</sub></td>
-<td align="center"><img src="assets/robot_side.png" width="220"><br><sub>Side view</sub></td>
-<td align="center"><img src="assets/robot_top.png" width="220"><br><sub>Top view</sub></td>
-<td align="center"><img src="assets/robot_rear.png" width="220"><br><sub>Rear view</sub></td>
-</tr>
-</table>
-
-Table of Contents
-
-1. Project & Team
-
-Team
-
-Project Overview
-
-Engineering Objectives
-
-Overall Robot Architecture
-
-2. Mobility & Mechanical Design
-
-Mobility & Mechanical Design
-
-Mobility and Drive System
-
-Steering System
-
-Mechanical Design Decisions
-
-Why We Chose LEGO
-
-Mechanical Testing
-
-3. Power & Sensor Architecture
-
-Power & Sensor Architecture
-
-Power Budget and Distribution
-
-Sensor Architecture
-
-Sensor Selection and Trade-offs
-
-Sensor Placement
-
-Camera Calibration
-
-IMU Calibration
-
-Sensor Testing and Reliability
-
-4. Software Architecture & Obstacle Strategy
-
-Software Architecture & Obstacle Strategy
-
-Software Modules
-
-Master State Machine
-
-Computer Vision
-
-Colour Detection
-
-Wall and Lane Following
-
-Steering and Speed Control
-
-Lap Counting and Debouncing
-
-Obstacle Detection and Strategy
-
-Red / Green Obstacle Recognition
-
-Obstacle-Side Decision Logic
-
-Obstacle Avoidance and Recovery
-
-Open Challenge Strategy
-
-Parking Strategy
-
-IMU-Based Parking Alignment
-
-Edge Cases and Failure Handling
-
-5. Testing, Systems Thinking & Engineering Decisions
-
-Testing, Validation & Tuning
-
-Testing Methodology
-
-Testing Metrics
-
-Colour Threshold Testing
-
-Steering Parameter Tuning
-
-Obstacle Detection Testing
-
-Lap Counting Testing
-
-Parking Testing
-
-Software Iterations
-
-Systems Thinking & Engineering Decisions
-
-Engineering Constraints
-
-Engineering Trade-offs
-
-Design Evolution
-
-Problems → Solutions → Results
-
-Risk and Failure Analysis
-
-Risk Mitigation
-
-Evidence-Based Engineering Decisions
-
-6. Reproducibility & GitHub Quality
-
-Final System Architecture
-
-Final Hardware Specifications
-
-Bill of Materials
-
-Reproducibility & GitHub Quality
-
-Software Setup
-
-Version Control
-
-Testing Workflow
-
-Final Performance Validation
-
-Final Robot
-
-Engineering Philosophy
-
-Conclusion
-
-Team
-
-BroCode
-
-1. Tanish Kothari --- Software
+**Design → Build → Test → Identify Problem → Analyse → Modify → Retest**
+
+------------------------------------------------------------------------
+
+# Table of Contents
+
+## 1. Project & Team
+
+- [Team](#team)
+- [Project Overview](#project-overview)
+- [Engineering Objectives](#engineering-objectives)
+- [Overall Robot Architecture](#overall-robot-architecture)
+
+## 2. Mobility & Mechanical Design
+
+- [Mobility & Mechanical Design](#mobility--mechanical-design)
+- [Mobility and Drive System](#mobility-and-drive-system)
+- [Steering System](#steering-system)
+- [Mechanical Design Decisions](#mechanical-design-decisions)
+- [Why We Chose LEGO](#why-we-chose-lego)
+- [Mechanical Testing](#mechanical-testing)
+
+## 3. Power & Sensor Architecture
+
+- [Power & Sensor Architecture](#power--sensor-architecture)
+- [Power Budget and Distribution](#power-budget-and-distribution)
+- [Sensor Architecture](#sensor-architecture)
+- [Sensor Selection and Trade-offs](#sensor-selection-and-trade-offs)
+- [Sensor Placement](#sensor-placement)
+- [Camera Calibration](#camera-calibration)
+- [IMU Calibration](#imu-calibration)
+- [Sensor Testing and Reliability](#sensor-testing-and-reliability)
+
+## 4. Software Architecture & Obstacle Strategy
+
+- [Software Architecture & Obstacle Strategy](#software-architecture--obstacle-strategy)
+- [Software Modules](#software-modules)
+- [Master State Machine](#master-state-machine)
+- [Computer Vision](#computer-vision)
+- [Colour Detection](#colour-detection)
+- [Wall and Lane Following](#wall-and-lane-following)
+- [Steering and Speed Control](#steering-and-speed-control)
+- [Lap Counting and Debouncing](#lap-counting-and-debouncing)
+- [Obstacle Detection and Strategy](#obstacle-detection-and-strategy)
+- [Red / Green Obstacle Recognition](#red--green-obstacle-recognition)
+- [Obstacle-Side Decision Logic](#obstacle-side-decision-logic)
+- [Obstacle Avoidance and Recovery](#obstacle-avoidance-and-recovery)
+- [Open Challenge Strategy](#open-challenge-strategy)
+- [Parking Strategy](#parking-strategy)
+- [IMU-Based Parking Alignment](#imu-based-parking-alignment)
+- [Edge Cases and Failure Handling](#edge-cases-and-failure-handling)
+
+## 5. Testing, Systems Thinking & Engineering Decisions
+
+- [Testing, Validation & Tuning](#testing-validation--tuning)
+- [Testing Methodology](#testing-methodology)
+- [Testing Metrics](#testing-metrics)
+- [Colour Threshold Testing](#colour-threshold-testing)
+- [Steering Parameter Tuning](#steering-parameter-tuning)
+- [Obstacle Detection Testing](#obstacle-detection-testing)
+- [Lap Counting Testing](#lap-counting-testing)
+- [Parking Testing](#parking-testing)
+- [Software Iterations](#software-iterations)
+- [Systems Thinking & Engineering Decisions](#systems-thinking--engineering-decisions)
+- [Engineering Constraints](#engineering-constraints)
+- [Engineering Trade-offs](#engineering-trade-offs)
+- [Design Evolution](#design-evolution)
+- [Problems → Solutions → Results](#problems--solutions--results)
+- [Risk and Failure Analysis](#risk-and-failure-analysis)
+- [Risk Mitigation](#risk-mitigation)
+- [Evidence-Based Engineering Decisions](#evidence-based-engineering-decisions)
+
+## 6. Reproducibility & GitHub Quality
+
+- [Final System Architecture](#final-system-architecture)
+- [Final Hardware Specifications](#final-hardware-specifications)
+- [Bill of Materials](#bill-of-materials)
+- [Reproducibility & GitHub Quality](#reproducibility--github-quality)
+- [Software Setup](#software-setup)
+- [Version Control](#version-control)
+- [Testing Workflow](#testing-workflow)
+- [Final Performance Validation](#final-performance-validation)
+- [Final Robot](#final-robot)
+- [Engineering Philosophy](#engineering-philosophy)
+- [Conclusion](#conclusion)
+
+------------------------------------------------------------------------
+
+# Team
+
+## BroCode
+
+### 1. Tanish Kothari --- Software
 
 Primary responsibilities:
 
+-   Software architecture
+-   Python programming
+-   Computer vision
+-   Camera processing
+-   Colour detection
+-   Navigation logic
+-   Steering control
+-   IMU software integration
+-   Obstacle detection and strategy
+-   Parking logic
+-   Software testing and debugging
+-   GitHub documentation
 
-
-2. Vihaan Kothari --- Hardware
+### 2. Vihaan Kothari --- Hardware
 
 Primary responsibilities:
 
+-   Mechanical design
+-   LEGO Technic construction
+-   Chassis development
+-   Drive mechanism
+-   Steering mechanism
+-   Electronics integration
+-   Sensor mounting
+-   Wiring
+-   Mechanical testing
+-   Hardware modifications
 
+Both members contributed to the overall robot strategy, testing,
+debugging, design decisions, system integration, and development of the
+final robot.
 
-Both members contributed to the overall robot strategy, testing,debugging, design decisions, system integration, and development of thefinal robot.
+------------------------------------------------------------------------
 
-Project Overview
+# Project Overview
 
-The WRO Future Engineers challenge requires the robot to navigate thetrack autonomously while responding to changing conditions.
+The WRO Future Engineers challenge requires the robot to navigate the
+track autonomously while responding to changing conditions.
 
-The Open Challenge requires the robot to navigate changing internalwall configurations. The Obstacle Challenge additionally requiresthe robot to recognise red and green obstacles, obey the required sideof the track, and complete the parking task.
+The **Open Challenge** requires the robot to navigate changing internal
+wall configurations. The **Obstacle Challenge** additionally requires
+the robot to recognise red and green obstacles, obey the required side
+of the track, and complete the parking task.
 
-Because the environment is not completely fixed, our robot was designedaround closed-loop control rather than a sequence of pre-programmedmovements.
+Because the environment is not completely fixed, our robot was designed
+around closed-loop control rather than a sequence of pre-programmed
+movements.
 
-The robot continuously obtains information from its sensors, processesthat information, makes a navigation decision, and changes its movementaccordingly.
+The robot continuously obtains information from its sensors, processes
+that information, makes a navigation decision, and changes its movement
+accordingly.
 
 The overall control loop is:
 
+``` text
+Sensors
+   ↓
+Perception
+   ↓
+State Estimation
+   ↓
+Decision Making
+   ↓
+Control
+   ↓
+Actuation
+   ↓
+New Sensor Data
+   ↓
+Repeat
+```
 
+This allows the robot to respond to the actual state of the track
+instead of replaying a predetermined route.
 
-This allows the robot to respond to the actual state of the trackinstead of replaying a predetermined route.
+------------------------------------------------------------------------
 
-Engineering Objectives
+# Engineering Objectives
 
 Our main engineering objectives were:
 
+1.  Build a mechanically stable and predictable vehicle.
+2.  Create a reliable steering mechanism.
+3.  Balance motor torque and speed instead of maximising only one.
+4.  Keep the robot compact and lightweight.
+5.  Make the chassis modular so mechanical changes could be made
+    quickly.
+6.  Use computer vision as the primary source of environmental
+    information.
+7.  Use the IMU and IR sensors as complementary feedback.
+8.  Create a reliable power distribution system.
+9.  Build modular software so individual systems could be tested
+    independently.
+10. Document the final robot sufficiently for another team to understand
+    and reproduce it.
 
+------------------------------------------------------------------------
 
-Overall Robot Architecture
+# Overall Robot Architecture
 
 The robot is divided into five closely connected subsystems:
 
+``` text
+                    ┌─────────────────────┐
+                    │   Raspberry Pi 4B   │
+                    │   Main Controller   │
+                    └──────────┬──────────┘
+                               │
+             ┌─────────────────┼─────────────────┐
+             │                 │                 │
+             ↓                 ↓                 ↓
+       Camera System       BNO055 IMU       IR Sensors
+             │                 │                 │
+             └─────────────────┼─────────────────┘
+                               ↓
+                     Perception / Fusion
+                               ↓
+                       Decision / FSM
+                               ↓
+                     Steering + Speed
+                               ↓
+              ┌─────────────────────────┐
+              │       Actuators         │
+              │                         │
+              │ Drive Motor + Gearbox   │
+              │ Steering Servo          │
+              └─────────────────────────┘
 
+Battery
+   ↓
+Power Distribution
+   ↓
+Voltage Regulation
+   ↓
+Raspberry Pi / Sensors / Electronics
+```
 
-The systems are not independent. Camera position affects the field ofview available to the software, steering geometry affects therelationship between a software command and vehicle movement, and motorselection affects the speed and acceleration that the control system cansafely use.
+The systems are not independent. Camera position affects the field of
+view available to the software, steering geometry affects the
+relationship between a software command and vehicle movement, and motor
+selection affects the speed and acceleration that the control system can
+safely use.
 
-This interaction between subsystems was considered throughoutdevelopment.
+This interaction between subsystems was considered throughout
+development.
 
-Mobility & Mechanical Design
+------------------------------------------------------------------------
 
-The robot uses a hybrid structure made from LEGO Technic componentsand custom 3D-printed parts.
+# Mobility & Mechanical Design
 
-The LEGO structure was selected because it allowed us to rapidly changethe chassis geometry during development. Components could be moved,reinforced, or replaced without rebuilding the complete robot.
+The robot uses a hybrid structure made from **LEGO Technic components
+and custom 3D-printed parts**.
 
-Custom 3D-printed components were used where standard LEGO geometry didnot provide the required solution. These included motor mounting andhousing components, camera mounting/protection, and other customstructural parts.
+The LEGO structure was selected because it allowed us to rapidly change
+the chassis geometry during development. Components could be moved,
+reinforced, or replaced without rebuilding the complete robot.
+
+Custom 3D-printed components were used where standard LEGO geometry did
+not provide the required solution. These included motor mounting and
+housing components, camera mounting/protection, and other custom
+structural parts.
 
 The mechanical design was based on three requirements:
 
-The approximate base footprint is 22 cm × 12 cm. The camera ismounted approximately 26 cm above the floor, with its optical axisangled approximately 10° downward from horizontal.
+-   **Rigidity** --- the chassis should not flex enough to change
+    steering geometry.
+-   **Compactness** --- the robot should remain small and manoeuvrable.
+-   **Modularity** --- components should be easy to modify and repair.
 
-The stated robot mass during development was approximately 800g.
+The approximate base footprint is **22 cm × 12 cm**. The camera is
+mounted approximately **26 cm above the floor**, with its optical axis
+angled approximately **10° downward from horizontal**.
 
-Mobility and Drive System
+The stated robot mass during development was approximately **800
+g**.
 
-The robot uses a D360 brushed DC motor with a 22:1 gearbox forpropulsion.
+------------------------------------------------------------------------
 
-The gearbox was important because the robot needs useful wheel torquewhile still maintaining practical speed.
+# Mobility and Drive System
+
+The robot uses a **D360 brushed DC motor with a 22:1 gearbox** for
+propulsion.
+
+The gearbox was important because the robot needs useful wheel torque
+while still maintaining practical speed.
 
 The basic relationship considered during motor selection was:
 
+``` text
+Wheel Torque ≈ Motor Torque × Gear Ratio × Transmission Efficiency
+```
 
+Increasing the gear ratio increases available wheel torque but reduces
+output speed.
 
-Increasing the gear ratio increases available wheel torque but reducesoutput speed.
+Our objective was not to select the motor with the highest advertised
+RPM or torque. We needed a combination that provided:
 
-Our objective was not to select the motor with the highest advertisedRPM or torque. We needed a combination that provided:
+-   Useful straight-line speed
+-   Sufficient acceleration
+-   Reliable movement through corners
+-   Enough torque to avoid stalling
+-   Reasonable weight
+-   Compact integration
 
+The D360 with the 22:1 gearbox provided the most suitable balance for
+our robot.
 
+------------------------------------------------------------------------
 
-The D360 with the 22:1 gearbox provided the most suitable balance forour robot.
+# Steering System
 
-Steering System
+Steering is provided by a **REV Robotics 2000 Series Dual Mode Servo**
+mounted using a GoBILDA servo frame.
 
+The steering mechanism requires controlled angular positioning, so the
+servo provides a more appropriate interface than a simple uncontrolled
+motor.
 
-
-Steering is provided by a REV Robotics 2000 Series Dual Mode Servomounted using a GoBILDA servo frame.
-
-The steering mechanism requires controlled angular positioning, so theservo provides a more appropriate interface than a simple uncontrolledmotor.
-
-Mechanical play was treated as an important source of error. If thelinkage or servo mounting moves under load, the same software commandcan produce different physical steering angles.
+Mechanical play was treated as an important source of error. If the
+linkage or servo mounting moves under load, the same software command
+can produce different physical steering angles.
 
 The steering loop is:
 
+``` text
+Camera / IMU Data
+       ↓
+Calculate Heading / Position Error
+       ↓
+Determine Steering Error
+       ↓
+Control Algorithm
+       ↓
+Servo Angle
+       ↓
+Robot Direction
+```
 
+Mechanical geometry and software parameters were tuned together because
+changing the steering geometry changes the relationship between servo
+angle and vehicle motion.
 
-Mechanical geometry and software parameters were tuned together becausechanging the steering geometry changes the relationship between servoangle and vehicle motion.
+------------------------------------------------------------------------
 
-Mechanical Design Decisions
+# Mechanical Design Decisions
 
-Motor Selection
+## Motor Selection
 
 We considered several motor options.
 
-N20 DC Motor
+### N20 DC Motor
 
-REV NEO 550
+Advantages:
 
+-   Small
+-   Lightweight
+-   Easy to mount
 
+Disadvantages:
 
-LEGO Medium Motor
+-   Insufficient torque under the load of our final robot.
 
+### REV NEO 550
 
+Advantages:
 
-Final Choice: D360 + 22:1 Gearbox
+-   High power
+-   Strong performance
 
-The D360 solution provided the best overall balance between speed,torque, weight, size, and integration simplicity.
+Disadvantages:
 
-The decision was based on the complete drivetrain requirement ratherthan a single motor specification.
+-   Larger and heavier
+-   Required additional control hardware
+-   More complex than necessary for our design
 
-Why We Chose LEGO
+### LEGO Medium Motor
+
+Advantages:
+
+-   Easy LEGO integration
+-   Simple mounting
+
+Disadvantages:
+
+-   Lower performance for our required speed and torque balance
+
+### Final Choice: D360 + 22:1 Gearbox
+
+The D360 solution provided the best overall balance between speed,
+torque, weight, size, and integration simplicity.
+
+The decision was based on the complete drivetrain requirement rather
+than a single motor specification.
+
+------------------------------------------------------------------------
+
+# Why We Chose LEGO
 
 The LEGO chassis was designed from scratch for our robot.
 
 We selected LEGO because it provided:
 
+-   High modularity
+-   Fast prototyping
+-   Easy repair
+-   Easy component relocation
+-   Strong structural elements
+-   Simple mechanical iteration
 
+During development, being able to change the chassis quickly was more
+valuable to us than using a completely fixed custom frame.
 
-During development, being able to change the chassis quickly was morevaluable to us than using a completely fixed custom frame.
+This allowed us to test different motor, camera, sensor, and structural
+configurations without rebuilding the complete robot.
 
-This allowed us to test different motor, camera, sensor, and structuralconfigurations without rebuilding the complete robot.
+------------------------------------------------------------------------
 
-Mechanical Testing
+# Mechanical Testing
 
-Mechanical testing was performed after major changes to the drivetrain,chassis, and steering system.
+Mechanical testing was performed after major changes to the drivetrain,
+chassis, and steering system.
 
 We evaluated:
 
+-   Straight-line stability
+-   Acceleration behaviour
+-   Turning behaviour
+-   Steering response
+-   Mechanical play
+-   Motor mounting stability
+-   Chassis rigidity
+-   Wheel alignment
+-   Camera mounting stability
 
+When inconsistent behaviour appeared, we first checked for a mechanical
+cause before changing software parameters.
 
-When inconsistent behaviour appeared, we first checked for a mechanicalcause before changing software parameters.
+This prevented software tuning from being used to hide mechanical
+instability.
 
-This prevented software tuning from being used to hide mechanicalinstability.
+------------------------------------------------------------------------
 
-Power & Sensor Architecture
+# Power & Sensor Architecture
 
-<table><tr><td align="center"><img src="assets/component_battery.png" width="250"><br><sub>7.4 V rechargeable battery</sub></td><td align="center"><img src="assets/component_buck.png" width="220"><br><sub>5 V buck converter</sub></td><td align="center"><img src="assets/component_pcb.png" width="250"><br><sub>Custom electronics board</sub></td></tr></table>
+The robot uses a **7.4 V, 1500 mAh Li-ion rechargeable battery pack**.
 
-The robot uses a 7.4 V, 1500 mAh Li-ion rechargeable battery pack.
-
-The battery feeds the power distribution system, which provides theappropriate supply to the motor system and regulated electronics.
+The battery feeds the power distribution system, which provides the
+appropriate supply to the motor system and regulated electronics.
 
 The main architecture is:
 
+``` text
+7.4 V Battery
+     │
+     ├──────────────→ Motor Driver → Drive Motor
+     │
+     ↓
+Buck Converter
+     │
+     └──────────────→ 5 V Electronics
+                         │
+                         ├── Raspberry Pi
+                         ├── Camera
+                         ├── Sensors
+                         └── Other peripherals
+```
 
+The Raspberry Pi requires a stable regulated supply because voltage
+drops can cause instability or unexpected resets.
 
-The Raspberry Pi requires a stable regulated supply because voltagedrops can cause instability or unexpected resets.
+The motor power path and regulated electronics path were therefore
+treated separately.
 
-The motor power path and regulated electronics path were thereforetreated separately.
+------------------------------------------------------------------------
 
-Power Budget and Distribution
-
-
+# Power Budget and Distribution
 
 The major electrical loads are:
 
-
+  Component         Supply / Path            Function
+  ----------------- ------------------------ -----------------------
+  Raspberry Pi 4B   5 V regulated            Main processing
+  Camera            Raspberry Pi supply      Computer vision
+  BNO055            Regulated logic supply   Orientation feedback
+  IR sensors        Regulated logic supply   Close-range detection
+  Limit switches    GPIO                     Physical feedback
+  Motor driver      Battery-side supply      Motor control
+  Drive motor       Battery-side supply      Propulsion
+  Steering servo    Regulated supply         Steering
 
 The main power risks identified were:
 
+-   Battery voltage drop
+-   Motor current spikes
+-   Raspberry Pi brownouts
+-   Electrical noise
+-   Loose connections
+-   Insufficient regulator capacity
 
+Power connections were secured, regulated supplies were used for
+sensitive electronics, and the wiring was organised to reduce accidental
+disconnections.
 
-Power connections were secured, regulated supplies were used forsensitive electronics, and the wiring was organised to reduce accidentaldisconnections.
+The power system was tested with the motor running because a power
+system that is stable only when the motor is idle is not sufficient for
+competition operation.
 
-The power system was tested with the motor running because a powersystem that is stable only when the motor is idle is not sufficient forcompetition operation.
+------------------------------------------------------------------------
 
-Sensor Architecture
+# Sensor Architecture
 
-<table><tr><td align="center"><img src="assets/component_camera.png" width="220"><br><sub>Raspberry Pi Camera Module 3 Wide</sub></td><td align="center"><img src="assets/component_imu.png" width="220"><br><sub>BNO055 IMU</sub></td><td align="center"><img src="assets/component_ir.png" width="220"><br><sub>IR sensors</sub></td><td align="center"><img src="assets/component_limit.png" width="220"><br><sub>VEX limit switches</sub></td></tr></table>
-
-
-
-The robot uses multiple sensors because no single sensor providesreliable information for every part of the challenge.
+The robot uses multiple sensors because no single sensor provides
+reliable information for every part of the challenge.
 
 The main sensing systems are:
 
-
+-   **Raspberry Pi Camera Module 3 Wide**
+-   **BNO055 IMU**
+-   **4 IR sensors**
+-   **2 VEX limit switches**
 
 Each sensor has a defined role.
 
+  -----------------------------------------------------------------------
+  Sensor                              Main Purpose
+  ----------------------------------- -----------------------------------
+  Pi Camera                           Vision, track interpretation,
+                                      obstacle recognition, parking
 
+  BNO055 IMU                          Orientation and heading feedback
 
-The camera is the primary perception sensor. The IMU providesorientation information, while the IR sensors provide close-rangefeedback where visual positioning becomes less reliable.
+  IR Sensors                          Short-range detection and parking
+                                      alignment
 
-Sensor Selection and Trade-offs
+  Limit Switches                      Physical fail-safe feedback
+  -----------------------------------------------------------------------
 
-Camera
+The camera is the primary perception sensor. The IMU provides
+orientation information, while the IR sensors provide close-range
+feedback where visual positioning becomes less reliable.
 
+------------------------------------------------------------------------
 
+# Sensor Selection and Trade-offs
 
-The camera provides substantially more environmental information than asingle distance sensor.
+## Camera
+
+The camera provides substantially more environmental information than a
+single distance sensor.
 
 It can be used for:
 
+-   Wall detection
+-   Lane interpretation
+-   Coloured obstacle recognition
+-   Marker detection
+-   Parking-area detection
 
+Its main limitation is sensitivity to lighting, exposure, and colour
+thresholds.
 
-Its main limitation is sensitivity to lighting, exposure, and colourthresholds.
+## BNO055 IMU
 
-BNO055 IMU
-
-
-
-The BNO055 provides orientation information using internal sensorfusion.
+The BNO055 provides orientation information using internal sensor
+fusion.
 
 It is useful for:
 
+-   Heading correction
+-   Turn stabilisation
+-   Alignment
+-   Parking
 
+Its readings can still be affected by calibration and the robot's
+mounting environment.
 
-Its readings can still be affected by calibration and the robot'smounting environment.
-
-IR Sensors
-
-
+## IR Sensors
 
 IR sensors are simple and fast for short-range detection.
 
-They are particularly useful during parking when the robot is close tothe parking boundary.
+They are particularly useful during parking when the robot is close to
+the parking boundary.
 
-Their limitation is that they provide much less environmentalinformation than the camera.
+Their limitation is that they provide much less environmental
+information than the camera.
 
-Limit Switches
+## Limit Switches
 
+Limit switches provide simple physical feedback and an additional
+fail-safe if the robot unexpectedly interacts with an object.
 
+------------------------------------------------------------------------
 
-Limit switches provide simple physical feedback and an additionalfail-safe if the robot unexpectedly interacts with an object.
+# Sensor Placement
 
-Sensor Placement
+Sensor placement was based on the geometry of the task rather than
+simply available space.
 
-<img src="assets/sensor_placement.png" alt="Sensor placement on robot" width="850">
-
-
-
-Sensor placement was based on the geometry of the task rather thansimply available space.
-
-Camera
+### Camera
 
 The camera is:
 
+-   Mounted at the front of the robot
+-   Centred on the robot
+-   Approximately **26 cm above the floor**
+-   Pointed approximately **10° downward from horizontal**
 
+The centred mounting keeps the camera coordinate system aligned with the
+robot's centreline.
 
-The centred mounting keeps the camera coordinate system aligned with therobot's centreline.
+The height and angle provide a forward field of view while allowing the
+software to observe relevant track features before the robot reaches
+them.
 
-The height and angle provide a forward field of view while allowing thesoftware to observe relevant track features before the robot reachesthem.
+### BNO055
 
-BNO055
+The BNO055 is mounted securely on the **left side of the robot**.
 
-The BNO055 is mounted securely on the left side of the robot.
+Its position is kept fixed so that the sensor's coordinate frame remains
+consistent after calibration.
 
-Its position is kept fixed so that the sensor's coordinate frame remainsconsistent after calibration.
+### IR Sensors
 
-IR Sensors
+The IR sensors are placed toward the **rear of the robot** and are
+primarily used for close-range parking detection and alignment.
 
-The IR sensors are placed toward the rear of the robot and areprimarily used for close-range parking detection and alignment.
+### Limit Switches
 
-Limit Switches
+The limit switches are positioned so that an unexpected physical
+interaction can be detected.
 
-The limit switches are positioned so that an unexpected physicalinteraction can be detected.
+------------------------------------------------------------------------
 
-Camera Calibration
+# Camera Calibration
 
-Camera calibration and colour testing were performed using imagescaptured from the actual robot and track.
+Camera calibration and colour testing were performed using images
+captured from the actual robot and track.
 
-We initially tested RGB/BGR-based colour detection. We found that theseapproaches were sensitive to changes in lighting and exposure.
+We initially tested RGB/BGR-based colour detection. We found that these
+approaches were sensitive to changes in lighting and exposure.
 
 We then tested HSV because it separates hue from brightness.
 
-Finally, we tested LAB colour space and selected it for thecolour-detection approach that was most consistent during our testing.
+Finally, we tested LAB colour space and selected it for the
+colour-detection approach that was most consistent during our testing.
 
 The general processing pipeline is:
 
+``` text
+Camera Frame
+     ↓
+Image Pre-processing
+     ↓
+Colour Space Conversion
+     ↓
+Colour Threshold
+     ↓
+Binary Mask
+     ↓
+Noise Filtering
+     ↓
+Relevant Region Detection
+     ↓
+Position / Colour Classification
+     ↓
+Navigation Decision
+```
 
+Thresholds were tuned using real camera data instead of relying only on
+theoretical colour values.
 
-Thresholds were tuned using real camera data instead of relying only ontheoretical colour values.
+This was one of the most important parts of our development because
+camera reliability affects navigation, obstacle recognition, and
+parking.
 
-This was one of the most important parts of our development becausecamera reliability affects navigation, obstacle recognition, andparking.
+------------------------------------------------------------------------
 
-IMU Calibration
+# IMU Calibration
 
 The BNO055 is calibrated before navigation testing.
 
-The robot is kept stationary during the initial calibration process sothat a stable reference can be established.
+The robot is kept stationary during the initial calibration process so
+that a stable reference can be established.
 
-The IMU is then tested by rotating the robot manually and checkingwhether the reported heading changes consistently with the physicalmovement.
+The IMU is then tested by rotating the robot manually and checking
+whether the reported heading changes consistently with the physical
+movement.
 
-Calibration is important because incorrect orientation information cancause the robot to steer in the wrong direction or over-correct duringturns.
+Calibration is important because incorrect orientation information can
+cause the robot to steer in the wrong direction or over-correct during
+turns.
 
-The IMU is therefore used as a feedback source and is not treated as areplacement for visual information.
+The IMU is therefore used as a feedback source and is not treated as a
+replacement for visual information.
 
-Sensor Testing and Reliability
+------------------------------------------------------------------------
+
+# Sensor Testing and Reliability
 
 Sensor testing was performed independently before full-system testing.
 
+### Camera
 
+We tested:
 
-Testing sensors independently allowed us to determine whether a failureoriginated from sensing, software, or the physical system.
+-   Colour separation
+-   False detections
+-   Lighting variation
+-   Detection distance
+-   Region-of-interest size
+-   Stability of detected positions
 
-Software Architecture & Obstacle Strategy
+### BNO055
+
+We tested:
+
+-   Heading consistency
+-   Stationary behaviour
+-   Response during turns
+-   Repeatability after restarting
+
+### IR Sensors
+
+We tested:
+
+-   Short-range response
+-   Detection consistency
+-   Parking alignment
+-   False readings
+
+### Limit Switches
+
+We tested:
+
+-   Physical activation
+-   Electrical response
+-   Software response
+-   Recovery behaviour
+
+Testing sensors independently allowed us to determine whether a failure
+originated from sensing, software, or the physical system.
+
+------------------------------------------------------------------------
+
+# Software Architecture & Obstacle Strategy
 
 The robot software is modular rather than being one large program.
 
 The main software layers are:
 
-
+``` text
+Hardware Interface
+       ↓
+Sensor Acquisition
+       ↓
+Perception
+       ↓
+State Estimation
+       ↓
+Navigation
+       ↓
+Control
+       ↓
+Motor / Servo Output
+```
 
 The main functional modules are:
 
+1.  Camera acquisition
+2.  Image processing
+3.  Colour detection
+4.  Wall / lane detection
+5.  IMU interface
+6.  IR sensor interface
+7.  Steering controller
+8.  Speed control
+9.  Lap counting
+10. Obstacle recognition
+11. Obstacle-side decision
+12. Obstacle avoidance
+13. Parking detection
+14. Parking alignment
+15. Recovery handling
+16. Main state machine
 
+This structure makes it possible to test and modify individual systems
+without rewriting the complete program.
 
-This structure makes it possible to test and modify individual systemswithout rewriting the complete program.
+------------------------------------------------------------------------
 
-Software Modules
+# Software Modules
 
 The intended software organisation is:
 
+``` text
+Software/
+│
+├── Main/
+│   └── Main Control Program
+│
+├── Computer Vision/
+│   ├── Camera Input
+│   ├── Colour Detection
+│   ├── Wall Detection
+│   └── Obstacle Detection
+│
+├── Sensors/
+│   ├── BNO055
+│   ├── IR Sensors
+│   └── Limit Switches
+│
+├── Control/
+│   ├── Steering
+│   └── Speed
+│
+├── Obstacle/
+│   ├── Recognition
+│   ├── Side Decision
+│   └── Avoidance
+│
+└── Parking/
+    ├── Detection
+    ├── Alignment
+    └── Final Positioning
+```
 
+Each module has a defined responsibility, making debugging and future
+changes easier.
 
-Each module has a defined responsibility, making debugging and futurechanges easier.
+------------------------------------------------------------------------
 
-Master State Machine
+# Master State Machine
 
-The master state machine provides the overall structure of the robot'sbehaviour.
+The master state machine provides the overall structure of the robot's
+behaviour.
 
+``` text
+                 ┌──────────────┐
+                 │    START     │
+                 └──────┬───────┘
+                        ↓
+                 ┌──────────────┐
+                 │ INITIALISE   │
+                 └──────┬───────┘
+                        ↓
+                 ┌──────────────┐
+                 │    DRIVE     │
+                 └──────┬───────┘
+                        ↓
+             ┌──────────┴──────────┐
+             ↓                     ↓
+       ┌───────────┐         ┌──────────────┐
+       │ OBSTACLE  │         │   RECOVERY   │
+       │ DETECTED  │         │              │
+       └─────┬─────┘         └──────┬───────┘
+             ↓                      │
+       ┌───────────┐                │
+       │  AVOID    │────────────────┘
+       └─────┬─────┘
+             ↓
+       ┌──────────────┐
+       │ LAP COMPLETE │
+       └──────┬───────┘
+              ↓
+       ┌──────────────┐
+       │ THREE LAPS?  │
+       └──────┬───────┘
+          NO  │   YES
+              │
+              ↓
+        ┌─────────────┐
+        │   PARKING   │
+        └──────┬──────┘
+               ↓
+        ┌─────────────┐
+        │    STOP     │
+        └─────────────┘
+```
 
+The state machine prevents unrelated behaviours from interfering with
+one another.
 
-The state machine prevents unrelated behaviours from interfering withone another.
+For example, parking logic should not activate while the robot is still
+completing its laps.
 
-For example, parking logic should not activate while the robot is stillcompleting its laps.
+------------------------------------------------------------------------
 
-Computer Vision
-
-<img src="assets/computer_vision_tasks.svg" alt="Computer vision tasks" width="850">
+# Computer Vision
 
 Computer vision is one of the main parts of our robot.
 
-The Raspberry Pi Camera Module 3 Wide provides the visual input andOpenCV is used to process the images.
+The Raspberry Pi Camera Module 3 Wide provides the visual input and
+OpenCV is used to process the images.
 
 The main vision tasks are:
 
+-   Wall detection
+-   Lane interpretation
+-   Colour recognition
+-   Obstacle recognition
+-   Marker detection
+-   Parking detection
 
+Regions of interest are used where appropriate to reduce unnecessary
+processing and focus the algorithm on areas relevant to navigation.
 
-Regions of interest are used where appropriate to reduce unnecessaryprocessing and focus the algorithm on areas relevant to navigation.
+------------------------------------------------------------------------
 
-Colour Detection
+# Colour Detection
 
 We tested multiple colour representations during development.
 
-RGB/BGR thresholding was investigated first, but colour classificationbecame inconsistent under changes in lighting and exposure.
+RGB/BGR thresholding was investigated first, but colour classification
+became inconsistent under changes in lighting and exposure.
 
 HSV was then tested because it separates hue from brightness.
 
-LAB was ultimately selected for the colour-detection approach that gavethe most consistent results during our testing.
+LAB was ultimately selected for the colour-detection approach that gave
+the most consistent results during our testing.
 
 The process is:
 
+``` text
+Image
+ ↓
+Colour Space Conversion
+ ↓
+Colour Threshold
+ ↓
+Binary Mask
+ ↓
+Noise Filtering
+ ↓
+Contour / Region Detection
+ ↓
+Centroid / Position
+```
 
+The detected colour region is then converted into information that can
+be used by the navigation system.
 
-The detected colour region is then converted into information that canbe used by the navigation system.
+------------------------------------------------------------------------
 
-Wall and Lane Following
+# Wall and Lane Following
 
-The robot continuously estimates the position of relevant trackboundaries using the camera.
+The robot continuously estimates the position of relevant track
+boundaries using the camera.
 
 A target position is generated from the detected wall or lane geometry.
 
-The difference between the target position and the detected positionbecomes the steering error.
+The difference between the target position and the detected position
+becomes the steering error.
 
-
+``` text
+Target Position
+      -
+Detected Position
+      =
+Steering Error
+```
 
 The controller converts this error into a steering command.
 
-This allows the robot to continuously correct its path rather thanrelying on fixed steering angles.
+This allows the robot to continuously correct its path rather than
+relying on fixed steering angles.
 
-Steering and Speed Control
+------------------------------------------------------------------------
+
+# Steering and Speed Control
 
 The steering system uses feedback.
 
-If the robot is far from the desired path, the controller increases thesteering correction.
+If the robot is far from the desired path, the controller increases the
+steering correction.
 
-If the robot is close to the desired path, the correction becomessmaller.
+If the robot is close to the desired path, the correction becomes
+smaller.
 
 The basic proportional relationship is:
 
+``` text
+Steering Output = Kp × Error
+```
 
+A proportional controller was selected because our primary requirement
+was fast, predictable correction.
 
-A proportional controller was selected because our primary requirementwas fast, predictable correction.
-
-Too little correction caused drift, while too much correction causedoscillation.
+Too little correction caused drift, while too much correction caused
+oscillation.
 
 Steering parameters were therefore tuned experimentally.
 
-Speed is also coordinated with steering. Higher speed can be used whenthe robot is stable and the path is clear, while sharp turns oruncertain perception can justify reducing speed.
+Speed is also coordinated with steering. Higher speed can be used when
+the robot is stable and the path is clear, while sharp turns or
+uncertain perception can justify reducing speed.
 
-The objective is not maximum motor speed; it is the highest speed thatremains reliably controllable.
+The objective is not maximum motor speed; it is the highest speed that
+remains reliably controllable.
 
-Lap Counting and Debouncing
+------------------------------------------------------------------------
 
-Lap counting is handled in software using visual markers and a debouncecondition.
+# Lap Counting and Debouncing
 
-Without debouncing, the same marker could be detected in multipleconsecutive camera frames and incorrectly increase the lap count severaltimes.
+Lap counting is handled in software using visual markers and a debounce
+condition.
+
+Without debouncing, the same marker could be detected in multiple
+consecutive camera frames and incorrectly increase the lap count several
+times.
 
 The logic is:
 
+``` text
+Marker Detected
+      ↓
+Is Detection New?
+   /       \
+ NO         YES
+ ↓           ↓
+Ignore    Count Lap
+             ↓
+       Wait for Marker
+       to Leave Region
+             ↓
+       Ready for Next Lap
+```
 
+This prevents a single physical marker from producing multiple lap
+counts.
 
-This prevents a single physical marker from producing multiple lapcounts.
+------------------------------------------------------------------------
 
-Obstacle Detection and Strategy
+# Obstacle Detection and Strategy
 
-In the Obstacle Challenge, the robot identifies coloured obstacles usingcomputer vision.
+In the Obstacle Challenge, the robot identifies coloured obstacles using
+computer vision.
 
-The two relevant colours represent different side-obediencerequirements.
+The two relevant colours represent different side-obedience
+requirements.
 
 The obstacle pipeline is:
 
+``` text
+Camera
+  ↓
+Colour Space Conversion
+  ↓
+Red / Green Masks
+  ↓
+Contour Detection
+  ↓
+Obstacle Position
+  ↓
+Colour Classification
+  ↓
+Required Side
+  ↓
+Avoidance Path
+```
 
+The robot uses the detected obstacle colour as an input to the
+navigation decision rather than treating colour detection as an isolated
+vision feature.
 
-The robot uses the detected obstacle colour as an input to thenavigation decision rather than treating colour detection as an isolatedvision feature.
+------------------------------------------------------------------------
 
-Red / Green Obstacle Recognition
+# Red / Green Obstacle Recognition
 
-The software uses separate colour masks to distinguish the two obstaclecolours.
+The software uses separate colour masks to distinguish the two obstacle
+colours.
 
-The detected obstacle is classified according to its colour, and thatclassification affects the required path.
+The detected obstacle is classified according to its colour, and that
+classification affects the required path.
 
-The exact side decision is implemented in the obstacle strategy moduleso that recognition and navigation remain separate software functions.
+The exact side decision is implemented in the obstacle strategy module
+so that recognition and navigation remain separate software functions.
 
-Obstacle-Side Decision Logic
+------------------------------------------------------------------------
 
-The robot considers obstacle colour together with the current drivingstate and visible track geometry.
+# Obstacle-Side Decision Logic
+
+The robot considers obstacle colour together with the current driving
+state and visible track geometry.
 
 The decision process is:
 
+``` text
+Obstacle Detected
+       ↓
+Identify Colour
+       ↓
+Determine Required Side
+       ↓
+Check Current Robot Position
+       ↓
+Calculate Safe Path
+       ↓
+Change Steering Target
+       ↓
+Avoid Obstacle
+       ↓
+Return to Normal Path
+```
 
+This allows the robot to respond to obstacle position rather than
+relying on fixed obstacle coordinates.
 
-This allows the robot to respond to obstacle position rather thanrelying on fixed obstacle coordinates.
+------------------------------------------------------------------------
 
-Obstacle Avoidance and Recovery
+# Obstacle Avoidance and Recovery
 
 Obstacle avoidance is divided into three stages.
 
-1. Approach
+### 1. Approach
 
-The robot detects the obstacle and prepares for the required pathchange.
+The robot detects the obstacle and prepares for the required path
+change.
 
-2. Pass
+### 2. Pass
 
 The robot moves around the obstacle while maintaining clearance.
 
-3. Recover
+### 3. Recover
 
-After passing the obstacle, the robot gradually returns toward thenormal path.
+After passing the obstacle, the robot gradually returns toward the
+normal path.
 
-Gradual recovery is important because an immediate large steeringcorrection can cause oscillation or overshoot.
+Gradual recovery is important because an immediate large steering
+correction can cause oscillation or overshoot.
 
-If the obstacle temporarily disappears from the camera after beingdetected, the robot retains the current avoidance state for a shortperiod rather than immediately returning to normal navigation.
+If the obstacle temporarily disappears from the camera after being
+detected, the robot retains the current avoidance state for a short
+period rather than immediately returning to normal navigation.
 
 This prevents one missed frame from producing an incorrect path change.
 
-Open Challenge Strategy
+------------------------------------------------------------------------
+
+# Open Challenge Strategy
 
 The Open Challenge can contain different internal wall configurations.
 
-Our robot therefore does not depend on fixed coordinates for wallpositions.
+Our robot therefore does not depend on fixed coordinates for wall
+positions.
 
-Instead, it continuously detects visible wall geometry and adjusts itspath.
+Instead, it continuously detects visible wall geometry and adjusts its
+path.
 
-
+``` text
+Detect Wall
+    ↓
+Estimate Robot Position
+    ↓
+Calculate Desired Path
+    ↓
+Steer
+    ↓
+Re-detect Wall
+    ↓
+Correct
+```
 
 This allows the navigation system to adapt to different track layouts.
 
-Parking Strategy
+------------------------------------------------------------------------
+
+# Parking Strategy
 
 Parking was one of the most difficult parts of our design.
 
-Our goal was to use the camera effectively while keeping the sensorsystem as simple as possible.
+Our goal was to use the camera effectively while keeping the sensor
+system as simple as possible.
 
 The current parking development approach combines:
 
-
+-   Camera detection
+-   IMU orientation
+-   IR feedback
+-   Controlled steering
 
 The intended sequence is:
 
+``` text
+Three Laps Complete
+       ↓
+Identify Parking Area
+       ↓
+Align With Parking Direction
+       ↓
+Reduce Speed
+       ↓
+Use Camera + IMU
+       ↓
+Use IR for Close-Range Confirmation
+       ↓
+Correct Orientation
+       ↓
+Enter Parking Space
+       ↓
+Final Alignment
+       ↓
+STOP
+```
 
+The camera provides the main environmental information while the IMU and
+IR sensors provide additional feedback during the final alignment stage.
 
-The camera provides the main environmental information while the IMU andIR sensors provide additional feedback during the final alignment stage.
+------------------------------------------------------------------------
 
-IMU-Based Parking Alignment
+# IMU-Based Parking Alignment
 
 The BNO055 is used to estimate the robot's orientation during parking.
 
-The robot compares its current heading with the desired parkingorientation.
+The robot compares its current heading with the desired parking
+orientation.
 
-The heading error is then used to determine whether an additionalsteering correction is required.
+The heading error is then used to determine whether an additional
+steering correction is required.
 
-This is useful because camera-only alignment can become less reliablewhen the robot is very close to the parking boundaries.
+This is useful because camera-only alignment can become less reliable
+when the robot is very close to the parking boundaries.
 
-The IMU therefore provides an independent orientation reference duringthe final manoeuvre.
+The IMU therefore provides an independent orientation reference during
+the final manoeuvre.
 
-Edge Cases and Failure Handling
+------------------------------------------------------------------------
 
-We considered situations where the normal navigation assumptions canfail.
 
-Camera temporarily loses the wall
+# Edge Cases and Failure Handling
 
-The robot retains the previous valid steering information and avoidsmaking an extreme correction from a single bad frame.
+We considered situations where the normal navigation assumptions can
+fail.
 
-False colour detection
+### Camera temporarily loses the wall
 
-Colour detections are filtered using thresholding and region checksinstead of accepting every coloured pixel.
+The robot retains the previous valid steering information and avoids
+making an extreme correction from a single bad frame.
 
-Multiple obstacle detections
+### False colour detection
 
-The system evaluates relevant detected obstacle regions rather thantreating every coloured region as a separate obstacle.
+Colour detections are filtered using thresholding and region checks
+instead of accepting every coloured pixel.
 
-Sensor noise
+### Multiple obstacle detections
 
-Sensor readings are interpreted over time rather than relying on oneisolated measurement.
+The system evaluates relevant detected obstacle regions rather than
+treating every coloured region as a separate obstacle.
 
-Excessive steering
+### Sensor noise
 
-Steering output is limited so that one erroneous measurement cannotproduce an extreme command.
+Sensor readings are interpreted over time rather than relying on one
+isolated measurement.
 
-Robot becomes misaligned
+### Excessive steering
 
-The recovery state reduces aggressive movement and attempts to return toa stable visual path.
+Steering output is limited so that one erroneous measurement cannot
+produce an extreme command.
 
-Limit switch activation
+### Robot becomes misaligned
 
-A physical limit switch can provide an additional indication ofunexpected physical interaction.
+The recovery state reduces aggressive movement and attempts to return to
+a stable visual path.
 
-Testing, Validation & Tuning
+### Limit switch activation
 
-Testing was treated as an engineering process rather than a finalverification step.
+A physical limit switch can provide an additional indication of
+unexpected physical interaction.
+
+------------------------------------------------------------------------
+
+# Testing, Validation & Tuning
+
+Testing was treated as an engineering process rather than a final
+verification step.
 
 Our development cycle was:
 
+``` text
+Build
+ ↓
+Test
+ ↓
+Measure
+ ↓
+Identify Failure
+ ↓
+Change One Variable
+ ↓
+Retest
+ ↓
+Compare
+```
 
+Changing one major variable at a time made it easier to determine
+whether a change actually improved the robot.
 
-Changing one major variable at a time made it easier to determinewhether a change actually improved the robot.
+------------------------------------------------------------------------
 
-Testing Methodology
+# Testing Methodology
 
 Testing was divided into:
 
+### Mechanical Testing
 
+-   Chassis rigidity
+-   Wheel alignment
+-   Steering response
+-   Motor mounting
+-   Turning behaviour
 
-Full-System Testing
+### Electrical Testing
 
-The complete robot was tested with all systems operating simultaneouslybecause success of individual subsystems does not guarantee success ofthe complete system.
+-   Battery output
+-   Regulated voltage
+-   Motor operation
+-   Raspberry Pi stability
+-   Sensor power
 
-Testing Metrics
+### Sensor Testing
 
-We used measurable categories to evaluate changes rather than judgingimprovements only by appearance.
+-   Camera detection
+-   Colour thresholds
+-   IMU orientation
+-   IR response
+-   Limit switches
+
+### Software Testing
+
+-   State transitions
+-   Steering control
+-   Lap counting
+-   Obstacle recognition
+-   Parking logic
+-   Recovery states
+
+### Full-System Testing
+
+The complete robot was tested with all systems operating simultaneously
+because success of individual subsystems does not guarantee success of
+the complete system.
+
+------------------------------------------------------------------------
+
+# Testing Metrics
+
+We used measurable categories to evaluate changes rather than judging
+improvements only by appearance.
 
 The main performance metrics were:
 
-
+-   Lap completion rate
+-   Lap time
+-   Number of obstacle-avoidance successes
+-   Number of obstacle contacts
+-   Parking success rate
+-   Steering stability
+-   Number of recovery events
+-   Number of false obstacle detections
+-   Number of incorrect lap counts
+-   Electrical stability during continuous operation
 
 For software tuning, we looked particularly at the trade-off between:
 
+``` text
+Fast Response
+      ↕
+Stable Response
+```
 
+A parameter was not considered better simply because it increased speed.
+The objective was to improve speed while maintaining reliable
+completion.
 
-A parameter was not considered better simply because it increased speed.The objective was to improve speed while maintaining reliablecompletion.
+------------------------------------------------------------------------
 
-Colour Threshold Testing
+# Colour Threshold Testing
 
-Colour thresholds were tested using actual camera frames captured fromthe robot.
+Colour thresholds were tested using actual camera frames captured from
+the robot.
 
 The process was:
 
+1.  Capture an image.
+2.  Convert it to the selected colour space.
+3.  Apply an initial colour range.
+4.  Observe the detected region.
+5.  Adjust thresholds.
+6.  Test under different lighting conditions.
+7.  Verify that the detected region corresponds to the intended object.
+8.  Retest on the physical track.
 
+This reduced the chance that the robot would depend on one ideal
+lighting condition.
 
-This reduced the chance that the robot would depend on one ideallighting condition.
+------------------------------------------------------------------------
 
-Steering Parameter Tuning
+# Steering Parameter Tuning
 
 Steering parameters were tuned through repeated driving tests.
 
 The main failure modes were:
 
-Too little correction
+### Too little correction
 
 The robot slowly drifted away from the desired path.
 
-Too much correction
+### Too much correction
 
 The robot oscillated from side to side.
 
-Excessive steering at high speed
+### Excessive steering at high speed
 
 The robot could over-correct before the next useful camera update.
 
-The final approach was therefore to balance steering gain with robotspeed.
+The final approach was therefore to balance steering gain with robot
+speed.
 
-Obstacle Detection Testing
+------------------------------------------------------------------------
+
+# Obstacle Detection Testing
 
 Obstacle testing was performed by changing:
 
+-   Obstacle colour
+-   Obstacle position
+-   Robot approach angle
+-   Robot speed
+-   Distance from obstacle
 
+The objective was to verify that the software did not simply recognise
+the colour but actually used it to make the correct navigation decision.
 
-The objective was to verify that the software did not simply recognisethe colour but actually used it to make the correct navigation decision.
+------------------------------------------------------------------------
 
-Lap Counting Testing
+# Lap Counting Testing
 
 Lap counting was tested specifically for repeated detections.
 
-A marker visible across several frames should still count as only onelap event.
+A marker visible across several frames should still count as only one
+lap event.
 
 The debounce logic was therefore tested by:
 
+-   Approaching the marker slowly
+-   Approaching quickly
+-   Remaining near the marker
+-   Passing the marker multiple times
 
+The final system accepts a new lap only after the previous detection has
+cleared.
 
-The final system accepts a new lap only after the previous detection hascleared.
+------------------------------------------------------------------------
 
-Parking Testing
+# Parking Testing
 
 Parking was tested separately from normal driving.
 
 The main parameters considered were:
 
+-   Entry alignment
+-   Robot heading
+-   Steering angle
+-   IR sensor response
+-   Final position
+-   Final orientation
 
+The parking algorithm was adjusted through repeated attempts rather than
+relying on one successful run.
 
-The parking algorithm was adjusted through repeated attempts rather thanrelying on one successful run.
+The objective was to determine which combination of camera information,
+IMU heading, and IR feedback produced the most repeatable final
+alignment.
 
-The objective was to determine which combination of camera information,IMU heading, and IR feedback produced the most repeatable finalalignment.
+------------------------------------------------------------------------
 
-Software Iterations
+# Software Iterations
 
 The software evolved through multiple iterations.
 
-The important principle was that changes were made in response toobserved behaviour.
+The important principle was that changes were made in response to
+observed behaviour.
 
 A simplified development sequence was:
 
+``` text
+Basic steering
+      ↓
+Improved wall detection
+      ↓
+Proportional steering
+      ↓
+Speed / steering coordination
+      ↓
+Obstacle recognition
+      ↓
+Obstacle-side logic
+      ↓
+Recovery states
+      ↓
+Parking integration
+```
 
+Each stage added functionality while preserving previously working
+behaviour.
 
-Each stage added functionality while preserving previously workingbehaviour.
+------------------------------------------------------------------------
 
-Systems Thinking & Engineering Decisions
+# Systems Thinking & Engineering Decisions
 
-We treated the robot as one integrated system rather than as separatemechanical, electrical, sensor, and software projects.
+We treated the robot as one integrated system rather than as separate
+mechanical, electrical, sensor, and software projects.
 
 For example:
 
-
+``` text
+Motor
+ ↓
+Vehicle Speed
+ ↓
+Camera Motion
+ ↓
+Image Processing
+ ↓
+Steering Error
+ ↓
+Servo Command
+ ↓
+Vehicle Direction
+ ↓
+New Camera Image
+```
 
 Similarly:
 
-
+``` text
+Battery
+ ↓
+Voltage Regulation
+ ↓
+Raspberry Pi
+ ↓
+Camera Processing
+ ↓
+Navigation
+ ↓
+Motor Command
+ ↓
+Motor Current
+ ↓
+Battery Load
+```
 
 A change in one subsystem can therefore affect another subsystem.
 
 This interaction was considered when making design decisions.
 
-Engineering Constraints
+------------------------------------------------------------------------
+
+# Engineering Constraints
 
 The major constraints we worked under were:
 
+-   Limited robot size
+-   Limited weight
+-   Limited battery capacity
+-   Limited processing resources
+-   Real-time camera processing
+-   Mechanical space
+-   Steering precision
+-   Competition time
+-   Changing track geometry
+-   Random obstacle placement
+-   Autonomous operation
 
+Instead of optimising one subsystem independently, we looked for
+solutions that worked within the complete system.
 
-Instead of optimising one subsystem independently, we looked forsolutions that worked within the complete system.
+------------------------------------------------------------------------
 
-Engineering Trade-offs
+# Engineering Trade-offs
 
-Speed vs Stability
+## Speed vs Stability
 
-A faster robot can produce a better lap time, but higher speed reducesthe time available for steering correction.
+A faster robot can produce a better lap time, but higher speed reduces
+the time available for steering correction.
 
 We therefore prioritised controllable speed over maximum possible speed.
 
-Torque vs Speed
+## Torque vs Speed
 
 A higher gear ratio provides more torque but reduces wheel speed.
 
-We selected the 22:1 gearbox because the robot needed enough torque toaccelerate and maintain motion while still having useful speed.
+We selected the 22:1 gearbox because the robot needed enough torque to
+accelerate and maintain motion while still having useful speed.
 
-Camera Information vs Processing
+## Camera Information vs Processing
 
-A wider camera view provides more environmental information but alsoincreases the amount of image that must be processed.
+A wider camera view provides more environmental information but also
+increases the amount of image that must be processed.
 
-The camera was positioned and processed using relevant regions ofinterest to keep the system practical.
+The camera was positioned and processed using relevant regions of
+interest to keep the system practical.
 
-LEGO Modularity vs Custom Construction
+## LEGO Modularity vs Custom Construction
 
-A fully custom chassis could provide more fixed geometry, but LEGOallowed us to change the robot much faster during development.
+A fully custom chassis could provide more fixed geometry, but LEGO
+allowed us to change the robot much faster during development.
 
-We therefore used LEGO for the main structure and 3D printing wherecustom geometry was necessary.
+We therefore used LEGO for the main structure and 3D printing where
+custom geometry was necessary.
 
-Sensor Quantity vs Complexity
+## Sensor Quantity vs Complexity
 
-Adding more sensors can provide more redundancy, but it also increaseswiring, processing, and possible failure points.
+Adding more sensors can provide more redundancy, but it also increases
+wiring, processing, and possible failure points.
 
-We therefore gave each sensor a specific purpose rather than addingsensors without a defined role.
+We therefore gave each sensor a specific purpose rather than adding
+sensors without a defined role.
 
-Design Evolution
+------------------------------------------------------------------------
 
-The robot was developed through repeated changes rather than as onefinal design.
+# Design Evolution
 
-Early Design
+The robot was developed through repeated changes rather than as one
+final design.
 
-The initial objective was to create a vehicle capable of moving andsteering.
+### Early Design
 
-Intermediate Design
+The initial objective was to create a vehicle capable of moving and
+steering.
+
+### Intermediate Design
 
 Driving tests identified issues with:
 
+-   Torque
+-   Steering consistency
+-   Sensor placement
+-   Camera visibility
+-   Wiring organisation
 
-
-Improved Design
+### Improved Design
 
 We introduced:
 
+-   Gear reduction
+-   More stable motor mounting
+-   Improved steering mounting
+-   Better sensor positioning
+-   Custom printed components
+-   Electronics protection
+-   More structured software
 
-
-Final Design
+### Final Design
 
 The final system combines:
 
+-   LEGO chassis
+-   Custom 3D-printed components
+-   D360 + 22:1 gearbox
+-   REV servo steering
+-   Raspberry Pi 4B
+-   Pi Camera Module 3 Wide
+-   BNO055 IMU
+-   IR sensors
+-   Limit switches
+-   Regulated power distribution
+-   Modular software architecture
 
+------------------------------------------------------------------------
 
+# Problems → Solutions → Results
 
+  -----------------------------------------------------------------------
+  Problem                 Solution                Result
+  ----------------------- ----------------------- -----------------------
+  Insufficient torque     22:1 gearbox            Better drivetrain
+                                                  response
 
-Problems → Solutions → Results
+  Camera saw electronics  White electronics cover Cleaner visual input
+  as track features
 
+  Chassis changes were    LEGO modular structure  Faster iteration
+  difficult
 
+  Motor mounting movement Custom 3D-printed mount Improved alignment
 
-Why We Used a White Electronics Cover
+  Steering instability    Improved mounting and   More predictable
+                          software tuning         steering
 
-During camera testing, the camera could sometimes see the colours andcomponents of the electronics.
+  False colour detections Colour-space            More reliable detection
+                          thresholding and
+                          filtering
+
+  Repeated lap detection  Debouncing              Correct lap counting
+
+  Parking alignment       IMU orientation feedback       More controlled parking
+  uncertainty
+
+  Wiring complexity       Organised electronics   Cleaner connections
+                          board
+
+  Mechanical flex         Structural              More consistent
+                          reinforcement           steering
+  -----------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+# Why We Used a White Electronics Cover
+
+During camera testing, the camera could sometimes see the colours and
+components of the electronics.
 
 This created false visual information.
 
-The problem was particularly important because our software relies oncolour and object detection.
+The problem was particularly important because our software relies on
+colour and object detection.
 
 We therefore added a white cover over the electronics area.
 
-The cover reduced unwanted visual features and made the camera view moreconsistent.
+The cover reduced unwanted visual features and made the camera view more
+consistent.
 
-This was an example of a mechanical change solving a software perceptionproblem.
+This was an example of a mechanical change solving a software perception
+problem.
 
-Risk and Failure Analysis
+------------------------------------------------------------------------
+
+# Risk and Failure Analysis
 
 We considered the following major failure modes:
 
+  -----------------------------------------------------------------------
+  Failure Mode      Cause             Effect            Mitigation
+  ----------------- ----------------- ----------------- -----------------
+  Raspberry Pi      Motor current     Software stops    Regulated power
+  brownout          spike                               system
 
+  Motor stall       Insufficient      Robot stops       Gear reduction
+                    torque
 
-For example, camera failure cannot always be prevented, so the softwareavoids making an extreme decision based on one bad frame.
+  Camera false      Electronics /     Wrong navigation  White cover +
+  detection         lighting                            filtering
 
-Mechanical movement is reduced through stronger mounting, while softwaretuning is performed only after the mechanical system is stable.
+  Steering          Excessive gain    Robot loses path  Parameter tuning
+  oscillation
 
-This prevents software parameters from being used to hide mechanicalproblems.
+  Missed obstacle   Poor colour       Incorrect route   Colour testing +
+                    detection                           filtering
 
-Final System Architecture
+  Repeated lap      Same marker       Incorrect state   Debouncing
+  count             detected
+                    repeatedly
 
+  IMU error         Calibration /     Heading error     Calibration +
+                    interference                        visual feedback
 
+  IR false reading  Surface /         Parking error     Multi-sensor
+                    distance                            interpretation
+                    variation
 
-This architecture separates perception, decision-making, and actuationwhile maintaining feedback between them.
+  Loose wire        Vibration         Sensor / motor    Secured and
+                                      failure           organised wiring
 
-Final Hardware Specifications
+  Mechanical flex   Chassis movement  Steering          Structural
+                                      inconsistency     reinforcement
 
+  Sensor failure    Hardware fault    Missing feedback  Redundancy /
+                                                        recovery
+  -----------------------------------------------------------------------
 
+------------------------------------------------------------------------
 
-Bill of Materials------------------------------------------------------------------------
+# Risk Mitigation
 
-Bill of Materials
+Our risk mitigation strategy follows:
 
+``` text
+Identify Failure
+      ↓
+Reduce Probability
+      ↓
+Provide Recovery
+```
 
+For example, camera failure cannot always be prevented, so the software
+avoids making an extreme decision based on one bad frame.
 
-Reproducibility & GitHub Quality
+Mechanical movement is reduced through stronger mounting, while software
+tuning is performed only after the mechanical system is stable.
 
-Reproducibility & GitHub Quality
+This prevents software parameters from being used to hide mechanical
+problems.
 
-A second team should be able to understand and reproduce the robot usingthe documentation provided in this repository.
+------------------------------------------------------------------------
+
+# Final System Architecture
+
+``` text
+                         ┌─────────────────┐
+                         │ Raspberry Pi 4B │
+                         └────────┬────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              │                   │                   │
+              ↓                   ↓                   ↓
+        Pi Camera 3          BNO055 IMU          IR Sensors
+              │                   │                   │
+              └───────────────────┼───────────────────┘
+                                  ↓
+                         Sensor Processing
+                                  ↓
+                        Computer Vision
+                                  ↓
+                         State Estimation
+                                  ↓
+                         Master FSM
+                                  ↓
+                    ┌─────────────┴─────────────┐
+                    ↓                           ↓
+              Steering Control             Speed Control
+                    ↓                           ↓
+              REV Servo                  TB6612FNG
+                                                ↓
+                                           D360 Motor
+                                                ↓
+                                             Gearbox
+                                                ↓
+                                             Wheels
+
+Battery
+  ↓
+Power Distribution
+  ↓
+Buck Regulation
+  ↓
+Pi + Sensors + Electronics
+```
+
+This architecture separates perception, decision-making, and actuation
+while maintaining feedback between them.
+
+------------------------------------------------------------------------
+
+# Final Hardware Specifications
+
+  System                   Final Component
+  ------------------------ --------------------------------------
+  Main Controller          Raspberry Pi 4B 4GB
+  Camera                   Raspberry Pi Camera Module 3 Wide
+  Drive Motor              D360 Brushed DC Motor
+  Gearbox                  22:1
+  Motor Driver             TB6612FNG
+  Steering                 REV Robotics 2000 Series Servo
+  IMU                      BNO055
+  IR Sensors               4
+  Limit Switches           2
+  Battery                  7.4 V, 1500 mAh Li-ion
+  Main Regulation          5 V 3 A Buck Converter
+  Chassis                  LEGO Technic + 3D Printed
+  Approx. Weight           650--700 g
+  Approx. Base Footprint   22 × 12 cm
+  Camera Height            Approx. 26 cm above floor
+  Camera Angle             Approx. 10° downward from horizontal
+
+------------------------------------------------------------------------
+
+## Bill of Materials
+
+| Component | Quantity |
+|---|---:|
+| Raspberry Pi 4B 4GB | 1 |
+| Raspberry Pi Camera Module 3 Wide | 1 |
+| D360 Brushed DC Motor | 1 |
+| 22:1 Gearbox | 1 |
+| TB6612FNG Motor Driver | 1 |
+| REV 2000 Series Servo | 1 |
+| GoBILDA Servo Mount | 1 |
+| 7.4 V, 1500 mAh Li-ion Battery | 1 |
+| 5 V 3 A Buck Converter | 1 |
+| USB Buck Converter | 1 |
+| BNO055 IMU | 1 |
+| IR Sensors | 4 |
+| VEX Limit Switches | 2 |
+| LEGO Technic Parts | Multiple |
+| 3D Printed Parts | Custom |
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+# Reproducibility & GitHub Quality
+
+A second team should be able to understand and reproduce the robot using
+the documentation provided in this repository.
 
 The documentation covers:
 
+-   Hardware overview
+-   Bill of materials
+-   CAD files
+-   LEGO assembly information
+-   Wiring diagram
+-   Pin mapping
+-   Sensor placement
+-   Software source code
+-   Software module descriptions
+-   Testing workflow
+-   Engineering decisions
 
+The mechanical documentation explains how the chassis and custom
+components fit together.
 
-The mechanical documentation explains how the chassis and customcomponents fit together.
+The electrical documentation explains how the battery, regulators, motor
+driver, controller, and sensors are connected.
 
-The electrical documentation explains how the battery, regulators, motordriver, controller, and sensors are connected.
+The software documentation explains how those electrical components are
+controlled by the program.
 
-The software documentation explains how those electrical components arecontrolled by the program.
+The exact GPIO and interface mapping should be maintained in the
+dedicated wiring and pin-mapping documentation so that hardware changes
+do not require rewriting the main README.
 
-The exact GPIO and interface mapping should be maintained in thededicated wiring and pin-mapping documentation so that hardware changesdo not require rewriting the main README.
+------------------------------------------------------------------------
 
-Software Setup
+# Software Setup
 
 The software is intended to run on the Raspberry Pi.
 
 The basic setup process is:
 
+``` text
+Clone Repository
+      ↓
+Install Python Dependencies
+      ↓
+Connect Camera
+      ↓
+Connect Sensors
+      ↓
+Verify GPIO / I²C
+      ↓
+Run Sensor Tests
+      ↓
+Run Camera Test
+      ↓
+Run Navigation Program
+```
 
+The software is divided into modules so that individual components can
+be tested before running the complete autonomous program.
 
-The software is divided into modules so that individual components canbe tested before running the complete autonomous program.
+------------------------------------------------------------------------
 
-Version Control
+# Version Control
 
-GitHub is used as part of the engineering process rather than only as alocation for the final code.
+GitHub is used as part of the engineering process rather than only as a
+location for the final code.
 
-Significant development changes should be recorded through meaningfulcommits.
+Significant development changes should be recorded through meaningful
+commits.
 
 Examples of useful commit messages include:
 
+``` text
+Initial hardware architecture
+Initial autonomous control system
+Camera and colour detection added
+Steering controller improved
+Obstacle recognition added
+Parking system added
+Sensor calibration update
+Final software tuning
+Final documentation
+```
 
+A useful commit should communicate what changed and, where relevant, why
+it changed.
 
-A useful commit should communicate what changed and, where relevant, whyit changed.
+This allows the repository to show the engineering process instead of
+only presenting a final code dump.
 
-This allows the repository to show the engineering process instead ofonly presenting a final code dump.
+------------------------------------------------------------------------
 
-Testing Workflow
+# Testing Workflow
 
 Our standard testing workflow is:
 
-
+``` text
+1. Define the problem
+2. Create a test
+3. Run the current design
+4. Record the behaviour
+5. Identify the likely cause
+6. Change the relevant subsystem
+7. Run the same test again
+8. Compare the result
+9. Keep or revert the change
+10. Document the result
+```
 
 This prevents random tuning and makes engineering decisions traceable.
 
-Evidence-Based Engineering Decisions
+------------------------------------------------------------------------
+
+# Evidence-Based Engineering Decisions
 
 Important decisions were based on observed robot behaviour and testing.
 
-Motor
+### Motor
 
-We selected the D360 + 22:1 gearbox because smaller alternatives did notprovide the required torque, while larger alternatives introducedunnecessary size and complexity.
+We selected the D360 + 22:1 gearbox because smaller alternatives did not
+provide the required torque, while larger alternatives introduced
+unnecessary size and complexity.
 
-Chassis
+### Chassis
 
-We selected LEGO because rapid modification and repair were importantduring development.
+We selected LEGO because rapid modification and repair were important
+during development.
 
-Camera
+### Camera
 
-We selected the wide camera because the robot needs to observe the trackand obstacles ahead while driving.
+We selected the wide camera because the robot needs to observe the track
+and obstacles ahead while driving.
 
-IMU
+### IMU
 
-We selected the BNO055 because orientation feedback is useful forsteering stability and parking alignment.
+We selected the BNO055 because orientation feedback is useful for
+steering stability and parking alignment.
 
-IR Sensors
+### IR Sensors
 
-We used IR sensors for close-range information where camera-basedpositioning becomes less reliable.
+We used IR sensors for close-range information where camera-based
+positioning becomes less reliable.
 
-White Electronics Cover
+### White Electronics Cover
 
-We added the white cover after observing that the camera couldincorrectly interpret electronics as environmental features.
+We added the white cover after observing that the camera could
+incorrectly interpret electronics as environmental features.
 
 These decisions follow the engineering chain:
 
+``` text
+Problem
+  ↓
+Possible Solutions
+  ↓
+Testing
+  ↓
+Trade-off
+  ↓
+Engineering Decision
+```
 
+------------------------------------------------------------------------
 
-Final Performance Validation------------------------------------------------------------------------
+# Final Performance Validation
 
-Final Performance Validation
-
-Current Open Challenge reference: approximately 35 seconds per open-round lap.
+**Current Open Challenge reference:** approximately **35 seconds per open-round lap**.
 
 This is the main recorded performance figure currently available to us; other performance metrics are not presented as measured values unless they have been recorded.
 
-The final robot is evaluated across the same major areas used duringdevelopment.
+The final robot is evaluated across the same major areas used during
+development.
 
+### Mechanical
 
+-   Stable chassis
+-   Consistent steering
+-   Reliable drivetrain
+-   Secure component mounting
 
-Full System
+### Electrical
 
-The final test is performed with all subsystems operating simultaneouslybecause individual subsystem success does not guarantee full-systemsuccess.
+-   Stable regulated power
+-   Reliable motor operation
+-   Reliable sensor communication
+-   Organised wiring
 
-Final Robot
+### Sensors
 
-<img src="assets/final_design.svg" alt="Final robot architecture" width="850">
+-   Reliable camera detection
+-   Calibrated IMU
+-   Functional IR feedback
+-   Functional physical switches
 
-<table><tr><td align="center"><img src="assets/robot_front_card.png" width="240"><br><sub>Front</sub></td><td align="center"><img src="assets/robot_side_card.png" width="240"><br><sub>Side</sub></td><td align="center"><img src="assets/robot_top_card.png" width="240"><br><sub>Top</sub></td><td align="center"><img src="assets/robot_rear_card.png" width="240"><br><sub>Rear</sub></td></tr></table>
+### Software
 
+-   Modular architecture
+-   Master state machine
+-   Computer vision
+-   Steering control
+-   Obstacle strategy
+-   Lap counting
+-   Parking logic
+-   Recovery handling
 
+### Full System
 
-Our final robot is the result of repeated mechanical, electrical,sensor, and software iterations.
+The final test is performed with all subsystems operating simultaneously
+because individual subsystem success does not guarantee full-system
+success.
+
+------------------------------------------------------------------------
+
+# Final Robot
+
+Our final robot is the result of repeated mechanical, electrical,
+sensor, and software iterations.
 
 The final design combines:
 
+-   A modular LEGO Technic chassis
+-   Custom 3D-printed components
+-   D360 + 22:1 geared drivetrain
+-   REV servo steering
+-   Raspberry Pi 4B
+-   Raspberry Pi Camera Module 3 Wide
+-   BNO055 IMU
+-   IR sensors
+-   Limit switches
+-   Regulated power distribution
+-   Modular autonomous software
 
-
-The most important feature of the design is the interaction betweenthese systems.
+The most important feature of the design is the interaction between
+these systems.
 
 The camera provides information about the environment.
 
@@ -1065,37 +2152,58 @@ The mechanical system then produces the physical movement.
 
 This creates a closed-loop autonomous vehicle.
 
-Engineering Philosophy
+------------------------------------------------------------------------
 
-The main lesson from developing this robot was that making a robot workonce is different from engineering a robot that works repeatedly.
+# Engineering Philosophy
+
+The main lesson from developing this robot was that making a robot work
+once is different from engineering a robot that works repeatedly.
 
 Our development therefore focused on:
 
-
+-   Understanding why failures occurred
+-   Testing individual subsystems
+-   Making changes based on evidence
+-   Considering mechanical and software interactions
+-   Designing for repairability
+-   Reducing single points of failure
+-   Documenting decisions
+-   Retesting after modifications
 
 Whenever possible, we followed:
 
-Problem → Analysis → Solution → Test → Result
+**Problem → Analysis → Solution → Test → Result**
 
 rather than simply changing components until the robot appeared to work.
 
-Conclusion
+------------------------------------------------------------------------
 
-BroCode's WRO Future Engineers robot was developed as an integratedengineering system rather than as a collection of individual components.
+------------------------------------------------------------------------
 
-The mechanical system provides the stability and movement required bythe software.
+
+# Conclusion
+
+BroCode's WRO Future Engineers robot was developed as an integrated
+engineering system rather than as a collection of individual components.
+
+The mechanical system provides the stability and movement required by
+the software.
 
 The electrical system provides controlled and reliable power.
 
-The sensors provide information about both the environment and therobot.
+The sensors provide information about both the environment and the
+robot.
 
 The software converts that information into decisions.
 
 The control system converts those decisions into physical movement.
 
-Testing connects all of these systems together and allows weaknesses tobe identified and corrected.
+Testing connects all of these systems together and allows weaknesses to
+be identified and corrected.
 
-Our final design is the result of continuous iteration betweenmechanical design, electronics, sensing, software, and control.
+Our final design is the result of continuous iteration between
+mechanical design, electronics, sensing, software, and control.
 
-The purpose of this repository is to preserve that engineering processand make the final robot understandable, reproducible, and useful toanyone who wants to study or build upon the project.
-
+The purpose of this repository is to preserve that engineering process
+and make the final robot understandable, reproducible, and useful to
+anyone who wants to study or build upon the project.
