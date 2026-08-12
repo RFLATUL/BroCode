@@ -21,56 +21,85 @@ Our development process follows:
 
 # Table of Contents
 
--   [Team](#team)
--   [Project Overview](#project-overview)
--   [Engineering Objectives](#engineering-objectives)
--   [Overall Robot Architecture](#overall-robot-architecture)
--   [Mechanical Architecture](#mechanical-architecture)
--   [Mobility and Drive System](#mobility-and-drive-system)
--   [Steering System](#steering-system)
--   [Mechanical Design Decisions](#mechanical-design-decisions)
--   [Mechanical Testing](#mechanical-testing)
--   [Power Architecture](#power-architecture)
--   [Power Budget and Distribution](#power-budget-and-distribution)
--   [Sensor Architecture](#sensor-architecture)
--   [Sensor Selection and Trade-offs](#sensor-selection-and-trade-offs)
--   [Sensor Placement](#sensor-placement)
--   [Camera Calibration](#camera-calibration)
--   [IMU Calibration](#imu-calibration)
--   [Sensor Testing and Reliability](#sensor-testing-and-reliability)
--   [Software Architecture](#software-architecture)
--   [Software Modules](#software-modules)
--   [Master State Machine](#master-state-machine)
--   [Computer Vision](#computer-vision)
--   [Colour Detection](#colour-detection)
--   [Wall and Lane Following](#wall-and-lane-following)
--   [Steering and Speed Control](#steering-and-speed-control)
--   [Lap Counting and Debouncing](#lap-counting-and-debouncing)
--   [Obstacle Detection and Strategy](#obstacle-detection-and-strategy)
--   [Obstacle-Side Decision Logic](#obstacle-side-decision-logic)
--   [Obstacle Avoidance and Recovery](#obstacle-avoidance-and-recovery)
--   [Parking Strategy](#parking-strategy)
--   [Edge Cases and Failure Handling](#edge-cases-and-failure-handling)
--   [Testing and Tuning](#testing-and-tuning)
--   [Systems Thinking and Engineering
-    Decisions](#systems-thinking-and-engineering-decisions)
--   [Engineering Trade-offs](#engineering-trade-offs)
--   [Design Evolution](#design-evolution)
--   [Problems → Solutions → Results](#problems--solutions--results)
--   [Risk and Failure Analysis](#risk-and-failure-analysis)
--   [Final System Architecture](#final-system-architecture)
--   [Final Hardware Specifications](#final-hardware-specifications)
--   [Bill of Materials](#bill-of-materials)
--   [Repository Structure](#repository-structure)
--   [Hardware and Software
-    Reproducibility](#hardware-and-software-reproducibility)
--   [Version Control](#version-control)
--   [Testing Workflow](#testing-workflow)
--   [Evidence-Based Engineering
-    Decisions](#evidence-based-engineering-decisions)
--   [Final Robot](#final-robot)
--   [Engineering Philosophy](#engineering-philosophy)
--   [Conclusion](#conclusion)
+## 1. Project & Team
+
+- [Team](#team)
+- [Project Overview](#project-overview)
+- [Engineering Objectives](#engineering-objectives)
+- [Overall Robot Architecture](#overall-robot-architecture)
+
+## 2. Mobility & Mechanical Design
+
+- [Mobility & Mechanical Design](#mobility--mechanical-design)
+- [Mobility and Drive System](#mobility-and-drive-system)
+- [Steering System](#steering-system)
+- [Mechanical Design Decisions](#mechanical-design-decisions)
+- [Why We Chose LEGO](#why-we-chose-lego)
+- [Mechanical Testing](#mechanical-testing)
+
+## 3. Power & Sensor Architecture
+
+- [Power & Sensor Architecture](#power--sensor-architecture)
+- [Power Budget and Distribution](#power-budget-and-distribution)
+- [Sensor Architecture](#sensor-architecture)
+- [Sensor Selection and Trade-offs](#sensor-selection-and-trade-offs)
+- [Sensor Placement](#sensor-placement)
+- [Camera Calibration](#camera-calibration)
+- [IMU Calibration](#imu-calibration)
+- [Sensor Testing and Reliability](#sensor-testing-and-reliability)
+
+## 4. Software Architecture & Obstacle Strategy
+
+- [Software Architecture & Obstacle Strategy](#software-architecture--obstacle-strategy)
+- [Software Modules](#software-modules)
+- [Master State Machine](#master-state-machine)
+- [Computer Vision](#computer-vision)
+- [Colour Detection](#colour-detection)
+- [Wall and Lane Following](#wall-and-lane-following)
+- [Steering and Speed Control](#steering-and-speed-control)
+- [Lap Counting and Debouncing](#lap-counting-and-debouncing)
+- [Obstacle Detection and Strategy](#obstacle-detection-and-strategy)
+- [Red / Green Obstacle Recognition](#red--green-obstacle-recognition)
+- [Obstacle-Side Decision Logic](#obstacle-side-decision-logic)
+- [Obstacle Avoidance and Recovery](#obstacle-avoidance-and-recovery)
+- [Open Challenge Strategy](#open-challenge-strategy)
+- [Parking Strategy](#parking-strategy)
+- [IMU-Based Parking Alignment](#imu-based-parking-alignment)
+- [Edge Cases and Failure Handling](#edge-cases-and-failure-handling)
+
+## 5. Testing, Systems Thinking & Engineering Decisions
+
+- [Testing, Validation & Tuning](#testing-validation--tuning)
+- [Testing Methodology](#testing-methodology)
+- [Testing Metrics](#testing-metrics)
+- [Colour Threshold Testing](#colour-threshold-testing)
+- [Steering Parameter Tuning](#steering-parameter-tuning)
+- [Obstacle Detection Testing](#obstacle-detection-testing)
+- [Lap Counting Testing](#lap-counting-testing)
+- [Parking Testing](#parking-testing)
+- [Software Iterations](#software-iterations)
+- [Systems Thinking & Engineering Decisions](#systems-thinking--engineering-decisions)
+- [Engineering Constraints](#engineering-constraints)
+- [Engineering Trade-offs](#engineering-trade-offs)
+- [Design Evolution](#design-evolution)
+- [Problems → Solutions → Results](#problems--solutions--results)
+- [Risk and Failure Analysis](#risk-and-failure-analysis)
+- [Risk Mitigation](#risk-mitigation)
+- [Evidence-Based Engineering Decisions](#evidence-based-engineering-decisions)
+
+## 6. Reproducibility & GitHub Quality
+
+- [Final System Architecture](#final-system-architecture)
+- [Final Hardware Specifications](#final-hardware-specifications)
+- [Bill of Materials](#bill-of-materials)
+- [Reproducibility & GitHub Quality](#reproducibility--github-quality)
+- [Software Setup](#software-setup)
+- [Version Control](#version-control)
+- [Testing Workflow](#testing-workflow)
+- [Final Performance Validation](#final-performance-validation)
+- [Final Robot](#final-robot)
+- [Engineering Philosophy](#engineering-philosophy)
+- [Conclusion](#conclusion)
 
 ------------------------------------------------------------------------
 
@@ -230,7 +259,7 @@ development.
 
 ------------------------------------------------------------------------
 
-# Mechanical Architecture
+# Mobility & Mechanical Design
 
 The robot uses a hybrid structure made from **LEGO Technic components
 and custom 3D-printed parts**.
@@ -425,7 +454,7 @@ instability.
 
 ------------------------------------------------------------------------
 
-# Power Architecture
+# Power & Sensor Architecture
 
 The robot uses a **7.4 V, 1500 mAh Li-ion rechargeable battery pack**.
 
@@ -727,7 +756,7 @@ originated from sensing, software, or the physical system.
 
 ------------------------------------------------------------------------
 
-# Software Architecture
+# Software Architecture & Obstacle Strategy
 
 The robot software is modular rather than being one large program.
 
@@ -1253,7 +1282,7 @@ unexpected physical interaction.
 
 ------------------------------------------------------------------------
 
-# Testing and Tuning
+# Testing, Validation & Tuning
 
 Testing was treated as an engineering process rather than a final
 verification step.
@@ -1490,7 +1519,7 @@ behaviour.
 
 ------------------------------------------------------------------------
 
-# Systems Thinking and Engineering Decisions
+# Systems Thinking & Engineering Decisions
 
 We treated the robot as one integrated system rather than as separate
 mechanical, electrical, sensor, and software projects.
@@ -1873,7 +1902,7 @@ while maintaining feedback between them.
 
 ------------------------------------------------------------------------
 
-# Hardware and Software Reproducibility
+# Reproducibility & GitHub Quality
 
 A second team should be able to understand and reproduce the robot using
 the documentation provided in this repository.
