@@ -171,7 +171,7 @@ Our main engineering objectives were:
 
 ------------------------------------------------------------------------
 
-# Overall Robot Architecture------------------------------------------------------------------------
+# Overall Robot Architecture
 
 # Overall Robot Architecture
 
@@ -227,7 +227,7 @@ while still maintaining practical speed.
 
 The basic relationship considered during motor selection was:
 
-![Engineering flowchart 3](assets/03_torque.svg)
+
 
 Increasing the gear ratio increases available wheel torque but reduces
 output speed.
@@ -235,7 +235,7 @@ output speed.
 Our objective was not to select the motor with the highest advertised
 RPM or torque. We needed a combination that provided:
 
-![Drive selection requirements](assets/drive_requirements.svg)
+
 
 The D360 with the 22:1 gearbox provided the most suitable balance for
 our robot.
@@ -276,15 +276,14 @@ We considered several motor options.
 
 ### N20 DC Motor
 
-![Motor options considered](assets/motor_options.svg)
 
 ### REV NEO 550
 
-![Motor options considered](assets/motor_options.svg)
+
 
 ### LEGO Medium Motor
 
-![Motor options considered](assets/motor_options.svg)
+
 
 ### Final Choice: D360 + 22:1 Gearbox
 
