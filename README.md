@@ -70,7 +70,6 @@ Our development process follows:
     Decisions](#evidence-based-engineering-decisions)
 -   [Final Robot](#final-robot)
 -   [Engineering Philosophy](#engineering-philosophy)
--   [Team Responsibilities](#team-responsibilities)
 -   [Conclusion](#conclusion)
 
 ------------------------------------------------------------------------
