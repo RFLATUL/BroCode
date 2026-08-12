@@ -173,8 +173,6 @@ Our main engineering objectives were:
 
 # Overall Robot Architecture
 
-# Overall Robot Architecture
-
 The robot is divided into five closely connected subsystems:
 
 ![Engineering flowchart 2](assets/02_architecture.svg)
@@ -217,7 +215,6 @@ g**.
 
 # Mobility and Drive System
 
-<table><tr><td align="center"><width="320"><br><sub>D360 brushed DC motor + 22:1 gearbox</sub></td><td align="center"><width="220"><br><sub>TB6612FNG motor driver</sub></td></tr></table>
 
 The robot uses a **D360 brushed DC motor with a 22:1 gearbox** for
 propulsion.
@@ -244,7 +241,6 @@ our robot.
 
 # Steering System
 
-<table><tr><td align="center"><width="280"><br><sub>UltraTorque steering servo</sub></td><td align="center"><br><sub>Steering assembly</sub></td></tr></table>
 
 
 Steering is provided by a **REV Robotics 2000 Series Dual Mode Servo**
