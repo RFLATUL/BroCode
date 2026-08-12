@@ -205,7 +205,6 @@ structural parts.
 
 The mechanical design was based on three requirements:
 
-![Mechanical requirements](assets/mechanical_requirements.svg)
 
 The approximate base footprint is **22 cm × 12 cm**. The camera is
 mounted approximately **26 cm above the floor**, with its optical axis
@@ -237,7 +236,6 @@ output speed.
 Our objective was not to select the motor with the highest advertised
 RPM or torque. We needed a combination that provided:
 
-![Drive selection requirements](assets/drive_requirements.svg)
 
 The D360 with the 22:1 gearbox provided the most suitable balance for
 our robot.
