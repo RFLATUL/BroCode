@@ -272,15 +272,9 @@ We considered several motor options.
 
 ### N20 DC Motor
 
-![Motor options considered](assets/motor_options.svg)
-
 ### REV NEO 550
 
-![Motor options considered](assets/motor_options.svg)
-
 ### LEGO Medium Motor
-
-![Motor options considered](assets/motor_options.svg)
 
 ### Final Choice: D360 + 22:1 Gearbox
 
