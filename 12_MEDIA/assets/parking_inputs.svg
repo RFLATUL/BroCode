@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="339"><rect width="100%" height="100%" rx="24" fill="white"/>
+<text x="50" y="55" font-family="Arial" font-size="28" font-weight="700" fill="#102060">Parking Inputs</text>
+<circle cx="60" cy="100" r="6" fill="#215FAE"/>
+<text x="78" y="106" font-family="Arial" font-size="17" fill="#172033">Camera detection</text>
+<circle cx="60" cy="156" r="6" fill="#215FAE"/>
+<text x="78" y="162" font-family="Arial" font-size="17" fill="#172033">IMU orientation</text>
+<circle cx="60" cy="212" r="6" fill="#215FAE"/>
+<text x="78" y="218" font-family="Arial" font-size="17" fill="#172033">IR feedback</text>
+<circle cx="60" cy="268" r="6" fill="#215FAE"/>
+<text x="78" y="274" font-family="Arial" font-size="17" fill="#172033">Controlled steering</text>
+</svg>

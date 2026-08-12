@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240">
+<rect width="100%" height="100%" fill="white"/>
+<text x="60" y="48" font-family="Arial" font-size="30" font-weight="700" fill="#102060">Proportional Steering Control</text>
+<rect x="170" y="110" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="146.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Steering Output = Kp × Error</text>
+</svg>
