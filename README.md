@@ -1040,10 +1040,12 @@ We therefore prioritised controllable speed over maximum possible speed.
 
 ## Torque vs Speed
 
-A higher gear ratio provides more torque but reduces wheel speed.
+The LEGO Medium Motor provides a balance between torque and speed, with
+enough torque to drive the robot reliably while maintaining a useful
+rotational speed for autonomous navigation.
 
-We selected the 22:1 gearbox because the robot needed enough torque to
-accelerate and maintain motion while still having useful speed.
+We selected the LEGO Medium Motor because it provided sufficient torque
+for propulsion without sacrificing the speed needed for efficient movement.
 
 ## Camera Information vs Processing
 
