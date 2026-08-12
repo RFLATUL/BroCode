@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="870" viewBox="0 0 900 870">
+<rect width="100%" height="100%" fill="white"/>
+<text x="60" y="48" font-family="Arial" font-size="30" font-weight="700" fill="#102060">Obstacle-Side Decision Logic</text>
+<rect x="170" y="110" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="146.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Obstacle Detected</text>
+<line x1="450.0" y1="168" x2="450.0" y2="190" stroke="#215FAE" stroke-width="3"/>
+<polygon points="450.0,200 443.0,188 457.0,188" fill="#215FAE"/>
+<rect x="170" y="200" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="236.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Identify Colour</text>
+<line x1="450.0" y1="258" x2="450.0" y2="280" stroke="#215FAE" stroke-width="3"/>
+<polygon points="450.0,290 443.0,278 457.0,278" fill="#215FAE"/>
+<rect x="170" y="290" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="326.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Determine Required Side</text>
+<line x1="450.0" y1="348" x2="450.0" y2="370" stroke="#215FAE" stroke-width="3"/>
+<polygon points="450.0,380 443.0,368 457.0,368" fill="#215FAE"/>
+<rect x="170" y="380" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="416.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Check Current Robot Position</text>
+<line x1="450.0" y1="438" x2="450.0" y2="460" stroke="#215FAE" stroke-width="3"/>
+<polygon points="450.0,470 443.0,458 457.0,458" fill="#215FAE"/>
+<rect x="170" y="470" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="506.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Calculate Safe Path</text>
+<line x1="450.0" y1="528" x2="450.0" y2="550" stroke="#215FAE" stroke-width="3"/>
+<polygon points="450.0,560 443.0,548 457.0,548" fill="#215FAE"/>
+<rect x="170" y="560" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="596.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Change Steering Target</text>
+<line x1="450.0" y1="618" x2="450.0" y2="640" stroke="#215FAE" stroke-width="3"/>
+<polygon points="450.0,650 443.0,638 457.0,638" fill="#215FAE"/>
+<rect x="170" y="650" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="686.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Avoid Obstacle</text>
+<line x1="450.0" y1="708" x2="450.0" y2="730" stroke="#215FAE" stroke-width="3"/>
+<polygon points="450.0,740 443.0,728 457.0,728" fill="#215FAE"/>
+<rect x="170" y="740" width="560" height="58" rx="16" fill="#F4F7FB" stroke="#215FAE" stroke-width="2"/>
+<text x="450.0" y="776.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Return to Normal Path</text>
+</svg>

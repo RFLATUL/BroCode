@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="506"><rect width="100%" height="100%" fill="white" rx="24"/>
+<text x="40" y="45" font-family="Arial" font-size="27" font-weight="700" fill="#102060">Power Distribution</text>
+<rect x="40" y="70" width="300" height="56" fill="#102060"/>
+<text x="190.0" y="105" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">Component</text>
+<rect x="340" y="70" width="300" height="56" fill="#102060"/>
+<text x="490.0" y="105" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">Supply / Path</text>
+<rect x="640" y="70" width="300" height="56" fill="#102060"/>
+<text x="790.0" y="105" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">Function</text>
+<rect x="40" y="126" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="151" font-family="Arial" font-size="15" fill="#172033">Raspberry Pi 4B</text>
+<rect x="340" y="126" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="151" font-family="Arial" font-size="15" fill="#172033">5 V regulated</text>
+<rect x="640" y="126" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="151" font-family="Arial" font-size="15" fill="#172033">Main processing</text>
+<rect x="40" y="170" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="195" font-family="Arial" font-size="15" fill="#172033">Camera</text>
+<rect x="340" y="170" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="195" font-family="Arial" font-size="15" fill="#172033">Raspberry Pi supply</text>
+<rect x="640" y="170" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="195" font-family="Arial" font-size="15" fill="#172033">Computer vision</text>
+<rect x="40" y="214" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="239" font-family="Arial" font-size="15" fill="#172033">BNO055</text>
+<rect x="340" y="214" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="239" font-family="Arial" font-size="15" fill="#172033">Regulated logic supply</text>
+<rect x="640" y="214" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="239" font-family="Arial" font-size="15" fill="#172033">Orientation feedback</text>
+<rect x="40" y="258" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="283" font-family="Arial" font-size="15" fill="#172033">IR sensors</text>
+<rect x="340" y="258" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="283" font-family="Arial" font-size="15" fill="#172033">Regulated logic supply</text>
+<rect x="640" y="258" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="283" font-family="Arial" font-size="15" fill="#172033">Close-range detection</text>
+<rect x="40" y="302" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="327" font-family="Arial" font-size="15" fill="#172033">Limit switches</text>
+<rect x="340" y="302" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="327" font-family="Arial" font-size="15" fill="#172033">GPIO</text>
+<rect x="640" y="302" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="327" font-family="Arial" font-size="15" fill="#172033">Physical feedback</text>
+<rect x="40" y="346" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="371" font-family="Arial" font-size="15" fill="#172033">Motor driver</text>
+<rect x="340" y="346" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="371" font-family="Arial" font-size="15" fill="#172033">Battery-side supply</text>
+<rect x="640" y="346" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="371" font-family="Arial" font-size="15" fill="#172033">Motor control</text>
+<rect x="40" y="390" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="415" font-family="Arial" font-size="15" fill="#172033">Drive motor</text>
+<rect x="340" y="390" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="415" font-family="Arial" font-size="15" fill="#172033">Battery-side supply</text>
+<rect x="640" y="390" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="415" font-family="Arial" font-size="15" fill="#172033">Propulsion</text>
+<rect x="40" y="434" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="459" font-family="Arial" font-size="15" fill="#172033">Steering servo</text>
+<rect x="340" y="434" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="459" font-family="Arial" font-size="15" fill="#172033">Regulated supply</text>
+<rect x="640" y="434" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="459" font-family="Arial" font-size="15" fill="#172033">Steering</text>
+</svg>

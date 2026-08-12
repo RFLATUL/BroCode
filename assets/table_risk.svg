@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="638"><rect width="100%" height="100%" fill="white" rx="24"/>
+<text x="40" y="45" font-family="Arial" font-size="27" font-weight="700" fill="#102060">Risk and Failure Analysis</text>
+<rect x="40" y="70" width="300" height="56" fill="#102060"/>
+<text x="190.0" y="105" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">Failure Mode</text>
+<rect x="340" y="70" width="300" height="56" fill="#102060"/>
+<text x="490.0" y="105" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">Cause</text>
+<rect x="640" y="70" width="300" height="56" fill="#102060"/>
+<text x="790.0" y="105" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">Effect</text>
+<rect x="40" y="126" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="151" font-family="Arial" font-size="15" fill="#172033">Raspberry Pi brownout</text>
+<rect x="340" y="126" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="151" font-family="Arial" font-size="15" fill="#172033">Motor current spike</text>
+<rect x="640" y="126" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="151" font-family="Arial" font-size="15" fill="#172033">Software stops</text>
+<rect x="40" y="170" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="195" font-family="Arial" font-size="15" fill="#172033">Motor stall</text>
+<rect x="340" y="170" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="195" font-family="Arial" font-size="15" fill="#172033">Insufficient torque</text>
+<rect x="640" y="170" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="195" font-family="Arial" font-size="15" fill="#172033">Robot stops</text>
+<rect x="40" y="214" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="239" font-family="Arial" font-size="15" fill="#172033">Camera false detection</text>
+<rect x="340" y="214" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="239" font-family="Arial" font-size="15" fill="#172033">Electronics / lighting</text>
+<rect x="640" y="214" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="239" font-family="Arial" font-size="15" fill="#172033">Wrong navigation</text>
+<rect x="40" y="258" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="283" font-family="Arial" font-size="15" fill="#172033">Steering oscillation</text>
+<rect x="340" y="258" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="283" font-family="Arial" font-size="15" fill="#172033">Excessive gain</text>
+<rect x="640" y="258" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="283" font-family="Arial" font-size="15" fill="#172033">Robot loses path</text>
+<rect x="40" y="302" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="327" font-family="Arial" font-size="15" fill="#172033">Missed obstacle</text>
+<rect x="340" y="302" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="327" font-family="Arial" font-size="15" fill="#172033">Poor colour detection</text>
+<rect x="640" y="302" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="327" font-family="Arial" font-size="15" fill="#172033">Incorrect route</text>
+<rect x="40" y="346" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="371" font-family="Arial" font-size="15" fill="#172033">Repeated lap count</text>
+<rect x="340" y="346" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="371" font-family="Arial" font-size="15" fill="#172033">Same marker detected repeatedly</text>
+<rect x="640" y="346" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="371" font-family="Arial" font-size="15" fill="#172033">Incorrect state</text>
+<rect x="40" y="390" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="415" font-family="Arial" font-size="15" fill="#172033">IMU error</text>
+<rect x="340" y="390" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="415" font-family="Arial" font-size="15" fill="#172033">Calibration / interference</text>
+<rect x="640" y="390" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="415" font-family="Arial" font-size="15" fill="#172033">Heading error</text>
+<rect x="40" y="434" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="459" font-family="Arial" font-size="15" fill="#172033">IR false reading</text>
+<rect x="340" y="434" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="459" font-family="Arial" font-size="15" fill="#172033">Surface / distance variation</text>
+<rect x="640" y="434" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="459" font-family="Arial" font-size="15" fill="#172033">Parking error</text>
+<rect x="40" y="478" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="503" font-family="Arial" font-size="15" fill="#172033">Loose wire</text>
+<rect x="340" y="478" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="503" font-family="Arial" font-size="15" fill="#172033">Vibration</text>
+<rect x="640" y="478" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="503" font-family="Arial" font-size="15" fill="#172033">Sensor / motor failure</text>
+<rect x="40" y="522" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="547" font-family="Arial" font-size="15" fill="#172033">Mechanical flex</text>
+<rect x="340" y="522" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="354" y="547" font-family="Arial" font-size="15" fill="#172033">Chassis movement</text>
+<rect x="640" y="522" width="300" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="654" y="547" font-family="Arial" font-size="15" fill="#172033">Steering inconsistency</text>
+<rect x="40" y="566" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="591" font-family="Arial" font-size="15" fill="#172033">Sensor failure</text>
+<rect x="340" y="566" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="354" y="591" font-family="Arial" font-size="15" fill="#172033">Hardware fault</text>
+<rect x="640" y="566" width="300" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="654" y="591" font-family="Arial" font-size="15" fill="#172033">Missing feedback</text>
+</svg>

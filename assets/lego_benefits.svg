@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="451"><rect width="100%" height="100%" rx="24" fill="white"/>
+<text x="50" y="55" font-family="Arial" font-size="28" font-weight="700" fill="#102060">Why We Chose LEGO</text>
+<circle cx="60" cy="100" r="6" fill="#215FAE"/>
+<text x="78" y="106" font-family="Arial" font-size="17" fill="#172033">High modularity</text>
+<circle cx="60" cy="156" r="6" fill="#215FAE"/>
+<text x="78" y="162" font-family="Arial" font-size="17" fill="#172033">Fast prototyping</text>
+<circle cx="60" cy="212" r="6" fill="#215FAE"/>
+<text x="78" y="218" font-family="Arial" font-size="17" fill="#172033">Easy repair</text>
+<circle cx="60" cy="268" r="6" fill="#215FAE"/>
+<text x="78" y="274" font-family="Arial" font-size="17" fill="#172033">Easy component relocation</text>
+<circle cx="60" cy="324" r="6" fill="#215FAE"/>
+<text x="78" y="330" font-family="Arial" font-size="17" fill="#172033">Strong structural elements</text>
+<circle cx="60" cy="380" r="6" fill="#215FAE"/>
+<text x="78" y="386" font-family="Arial" font-size="17" fill="#172033">Simple mechanical iteration</text>
+</svg>

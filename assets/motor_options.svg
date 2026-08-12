@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520">
+<rect width="100%" height="100%" rx="28" fill="#f8fbff" stroke="#c9d8ea" stroke-width="3"/>
+<rect x="0" y="0" width="100%" height="72" rx="28" fill="#0b1c66"/>
+<text x="40" y="47" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="white">Motor Options Considered</text>
+<text x="50" y="110" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#2e6fb7">N20 DC Motor</text>
+<circle cx="60" cy="141" r="6" fill="#2e6fb7"/>
+<text x="82" y="148" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Small</text>
+<circle cx="60" cy="179" r="6" fill="#2e6fb7"/>
+<text x="82" y="186" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Lightweight</text>
+<circle cx="60" cy="217" r="6" fill="#2e6fb7"/>
+<text x="82" y="224" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Easy to mount</text>
+<circle cx="60" cy="255" r="6" fill="#2e6fb7"/>
+<text x="82" y="262" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Insufficient torque under final load</text>
+<text x="50" y="312" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#2e6fb7">REV NEO 550</text>
+<circle cx="60" cy="343" r="6" fill="#2e6fb7"/>
+<text x="82" y="350" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">High power</text>
+<circle cx="60" cy="381" r="6" fill="#2e6fb7"/>
+<text x="82" y="388" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Strong performance</text>
+<circle cx="60" cy="419" r="6" fill="#2e6fb7"/>
+<text x="82" y="426" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Larger and heavier</text>
+<circle cx="60" cy="457" r="6" fill="#2e6fb7"/>
+<text x="82" y="464" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Additional control hardware</text>
+<circle cx="60" cy="495" r="6" fill="#2e6fb7"/>
+<text x="82" y="502" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">More complex than necessary</text>
+<text x="50" y="552" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#2e6fb7">LEGO Medium Motor</text>
+<circle cx="60" cy="583" r="6" fill="#2e6fb7"/>
+<text x="82" y="590" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Easy LEGO integration</text>
+<circle cx="60" cy="621" r="6" fill="#2e6fb7"/>
+<text x="82" y="628" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Simple mounting</text>
+<circle cx="60" cy="659" r="6" fill="#2e6fb7"/>
+<text x="82" y="666" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#20252d">Lower performance for required speed/torque balance</text>
+</svg>
