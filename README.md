@@ -71,7 +71,6 @@ Our development process follows:
 -   [Final Robot](#final-robot)
 -   [Engineering Philosophy](#engineering-philosophy)
 -   [Team Responsibilities](#team-responsibilities)
--   [Documentation Checklist](#documentation-checklist)
 -   [Conclusion](#conclusion)
 
 ------------------------------------------------------------------------
