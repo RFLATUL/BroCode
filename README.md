@@ -171,7 +171,6 @@ Our main engineering objectives were:
 
 ------------------------------------------------------------------------
 
-# Overall Robot Architecture------------------------------------------------------------------------
 
 # Overall Robot Architecture
 
@@ -219,9 +218,8 @@ g**.
 
 # Mobility and Drive System
 
-<table><tr><td align="center"><img src="assets/component_lego_motor.png" width="320"><br><sub>D360 brushed DC motor + 22:1 gearbox</sub></td><td align="center"><img src="assets/component_tb6612.png" width="220"><br><sub>TB6612FNG motor driver</sub></td></tr></table>
+<table><tr><td align="center"><br><sub>D360 brushed DC motor + 22:1 gearbox</sub></td><td align="center"><br><sub>TB6612FNG motor driver</sub></td></tr></table>
 
-![D360 brushed DC motor and 22:1 gearbox](assets/component_lego_motor.png)
 
 The robot uses a **D360 brushed DC motor with a 22:1 gearbox** for
 propulsion.
@@ -248,9 +246,9 @@ our robot.
 
 # Steering System
 
-<table><tr><td align="center"><img src="assets/component_servo.png" width="280"><br><sub>UltraTorque steering servo</sub></td><td align="center"><img src="assets/servo_crop.png" width="220"><br><sub>Steering assembly</sub></td></tr></table>
+<table><tr><td align="center"><br><sub>UltraTorque steering servo</sub></td><td align="center"><br><sub>Steering assembly</sub></td></tr></table>
 
-![UltraTorque steering servo](assets/component_servo.png)
+
 
 Steering is provided by a **REV Robotics 2000 Series Dual Mode Servo**
 mounted using a GoBILDA servo frame.
