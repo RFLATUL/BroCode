@@ -17,31 +17,14 @@ Our development process follows:
 
 **Design → Build → Test → Identify Problem → Analyse → Modify → Retest**
 
-## Engineering Evidence Map
-
-This repository is organised around the full engineering cycle rather than only the final robot. The documentation takes the reviewer through **requirements → design → hardware → sensing → software → testing → iteration → final validation → reproducibility**.
-
-| Engineering evidence | Where to find it |
-|---|---|
-| Mechanical reasoning and drivetrain | [Mobility and Drive System](#mobility-and-drive-system), [Mechanical Design Decisions](#mechanical-design-decisions) |
-| Power architecture and sensor placement | [Power & Sensor Architecture](#power--sensor-architecture), [Sensor Placement](#sensor-placement) |
-| Algorithms and autonomous control | [Software Architecture & Obstacle Strategy](#software-architecture--obstacle-strategy), [Master State Machine](#master-state-machine) |
-| Obstacle and parking strategy | [Obstacle Detection and Strategy](#obstacle-detection-and-strategy), [Parking Strategy](#parking-strategy) |
-| Testing and validation | [Testing, Validation & Tuning](#testing-validation--tuning), [Testing Metrics](#testing-metrics) |
-| Design evolution and failure analysis | [Design Evolution](#design-evolution), [Risk and Failure Analysis](#risk-and-failure-analysis) |
-| Engineering decisions | [Evidence-Based Engineering Decisions](#evidence-based-engineering-decisions) |
-| Reproducibility | [Reproducibility & GitHub Quality](#reproducibility--github-quality), [Software Setup](#software-setup), [Bill of Materials](#bill-of-materials) |
-
-Where a numerical result has not been formally recorded, the repository does not present an invented value as a measured result.
-
-![Robot visual overview](12_MEDIA/assets/robot_views.png)
+![Robot visual overview](assets/robot_views.png)
 
 <table>
 <tr>
-<td align="center"><img src="12_MEDIA/assets/robot_front.png" width="220"><br><sub>Front view</sub></td>
-<td align="center"><img src="12_MEDIA/assets/robot_side.png" width="220"><br><sub>Side view</sub></td>
-<td align="center"><img src="12_MEDIA/assets/robot_top.png" width="220"><br><sub>Top view</sub></td>
-<td align="center"><img src="12_MEDIA/assets/robot_rear.png" width="220"><br><sub>Rear view</sub></td>
+<td align="center"><img src="assets/robot_front.png" width="220"><br><sub>Front view</sub></td>
+<td align="center"><img src="assets/robot_side.png" width="220"><br><sub>Side view</sub></td>
+<td align="center"><img src="assets/robot_top.png" width="220"><br><sub>Top view</sub></td>
+<td align="center"><img src="assets/robot_rear.png" width="220"><br><sub>Rear view</sub></td>
 </tr>
 </table>
 
@@ -51,7 +34,6 @@ Where a numerical result has not been formally recorded, the repository does not
 
 ## 1. Project & Team
 
-- [Engineering Evidence Map](#engineering-evidence-map)
 - [Team](#team)
 - [Project Overview](#project-overview)
 - [Engineering Objectives](#engineering-objectives)
@@ -140,13 +122,13 @@ Where a numerical result has not been formally recorded, the repository does not
 
 Primary responsibilities:
 
-![Tanish software responsibilities](12_MEDIA/assets/team_tanish.svg)
+![Tanish software responsibilities](assets/team_tanish.svg)
 
 ### 2. Vihaan Kothari --- Hardware
 
 Primary responsibilities:
 
-![Vihaan hardware responsibilities](12_MEDIA/assets/team_vihaan.svg)
+![Vihaan hardware responsibilities](assets/team_vihaan.svg)
 
 Both members contributed to the overall robot strategy, testing,
 debugging, design decisions, system integration, and development of the
@@ -174,7 +156,7 @@ accordingly.
 
 The overall control loop is:
 
-![Engineering flowchart 1](12_MEDIA/assets/01_control_loop.svg)
+![Engineering flowchart 1](assets/01_control_loop.svg)
 
 This allows the robot to respond to the actual state of the track
 instead of replaying a predetermined route.
@@ -185,7 +167,7 @@ instead of replaying a predetermined route.
 
 Our main engineering objectives were:
 
-![Engineering objectives](12_MEDIA/assets/engineering_objectives.svg)
+![Engineering objectives](assets/engineering_objectives.svg)
 
 ------------------------------------------------------------------------
 
@@ -194,7 +176,7 @@ Our main engineering objectives were:
 
 The robot is divided into five closely connected subsystems:
 
-![Engineering flowchart 2](12_MEDIA/assets/02_architecture.svg)
+![Engineering flowchart 2](assets/02_architecture.svg)
 
 The systems are not independent. Camera position affects the field of
 view available to the software, steering geometry affects the
@@ -235,43 +217,44 @@ g**.
 
 # Mobility and Drive System
 
-The robot uses a **LEGO Medium Motor** for propulsion. It integrates directly with the LEGO Technic drivetrain and provides sufficient speed and torque for the robot's requirements.
 
-The motor operates at approximately **9 V**, with a no-load speed of about **250 RPM** and torque of approximately **815 g·cm**. It also includes an internal rotation sensor with approximately **1° encoder resolution**, providing useful feedback for movement and turning control.
+The robot uses a **LEGO Medium Motor** for
+propulsion.
 
-![LEGO Medium Motor](12_MEDIA/assets/component_lego_motor.png)
+The LEGO Medium Motor was important because it integrates directly 
+with the LEGO Technic chassis while providing sufficient torque and 
+speed for propulsion.
 
-Our objective was to use a motor that could be integrated reliably into the LEGO chassis without adding unnecessary external gearing or control hardware. The LEGO Medium Motor provided the most practical balance of performance, integration, and modularity for our robot.
+The basic relationship considered during motor selection was:
+
+![Engineering flowchart 3](assets/03_torque.svg)
+
+The motor provides a good balance between speed, torque, weight, and ease of integration.
+
+Our objective was not to select the motor with the highest advertised
+RPM or torque. We needed a combination that provided:
+
+The LEGO Medium Motor provided the most suitable balance for
+our robot.
 
 ------------------------------------------------------------------------
 
 # Steering System
 
 
-Steering is provided by the **RoboKits India UltraTorque Servo**, selected for its high torque and precise angular control. It provides the steering response required for accurate front-wheel steering.
+Steering is provided by the **RoboKits India UltraTorque Servo**, 
+mounted securely on the front of the robot. The servo was selected
+for its high torque and precise angular control, allowing the robot 
+to make fast and accurate steering corrections.
 
-![RoboKits India UltraTorque Servo](12_MEDIA/assets/component_servo.png)
+Mechanical play wastreated as an important source of error. If the 
+linkage or servo mounting moves under load, the same software 
+command can produce different physical steering angles.
 
-### Servo Specifications
-
-- **Operating Voltage:** 7.2–8.4 V
-- **Operating Speed:** 0.13 sec/60° at 7.2 V; 0.10 sec/60° at 8.4 V
-- **No-Load Current:** 250 mA at 7.2 V; 300 mA at 8.4 V
-- **Stall Torque:** 21 kg·cm at 7.2 V; 25 kg·cm at 8.4 V
-- **Stall Current:** 3.2 A at 7.2 V; 3.5 A at 8.4 V
-- **Idle Current:** 4 mA at 7.2 V; 5 mA at 8.4 V
-
-The steering mechanism requires controlled angular positioning, so the
-servo provides a more appropriate interface than a simple uncontrolled
-motor.
-
-Mechanical play was treated as an important source of error. If the
-linkage or servo mounting moves under load, the same software command
-can produce different physical steering angles.
 
 The steering loop is:
 
-![Engineering flowchart 4](12_MEDIA/assets/04_steering_loop.svg)
+![Engineering flowchart 4](assets/04_steering_loop.svg)
 
 Mechanical geometry and software parameters were tuned together because
 changing the steering geometry changes the relationship between servo
@@ -287,22 +270,18 @@ We considered several motor options.
 
 ### N20 DC Motor
 
-![Motor options considered](12_MEDIA/assets/motor_options.svg)
-
 ### REV NEO 550
-
-![Motor options considered](12_MEDIA/assets/motor_options.svg)
 
 ### LEGO Medium Motor
 
-![Motor options considered](12_MEDIA/assets/motor_options.svg)
-
 ### Final Choice: LEGO Medium Motor
+The motor provides a good balance between speed, torque, weight, and ease of integration.
 
-The LEGO Medium Motor provided the best balance between performance,
-weight, integration, and compatibility with the modular LEGO chassis.
-The built-in rotation sensor also provides useful feedback for future
-movement and turning control.
+Our objective was not to select the motor with the highest advertised
+RPM or torque. We needed a combination that provided:
+
+The decision was based on the complete drivetrain requirement rather
+than a single motor specification.
 
 ------------------------------------------------------------------------
 
@@ -312,7 +291,7 @@ The LEGO chassis was designed from scratch for our robot.
 
 We selected LEGO because it provided:
 
-![Why we chose LEGO](12_MEDIA/assets/lego_benefits.svg)
+![Why we chose LEGO](assets/lego_benefits.svg)
 
 During development, being able to change the chassis quickly was more
 valuable to us than using a completely fixed custom frame.
@@ -329,21 +308,19 @@ chassis, and steering system.
 
 We evaluated:
 
-![Mechanical testing](12_MEDIA/assets/mech_tests.svg)
+![Mechanical testing](assets/mech_tests.svg)
 
 When inconsistent behaviour appeared, we first checked for a mechanical
 cause before changing software parameters.
 
 This prevented software tuning from being used to hide mechanical
-instability. The same test conditions were reused after a mechanical
-change so that the effect of the modification could be compared against
-the previous behaviour.
+instability.
 
 ------------------------------------------------------------------------
 
 # Power & Sensor Architecture
 
-<table><tr><td align="center"><img src="12_MEDIA/assets/component_battery.png" width="250"><br><sub>7.4 V rechargeable battery</sub></td><td align="center"><img src="12_MEDIA/assets/component_buck.png" width="220"><br><sub>5 V buck converter</sub></td><td align="center"><img src="12_MEDIA/assets/component_pcb.png" width="250"><br><sub>Custom electronics board</sub></td></tr></table>
+<table><tr><td align="center"><img src="assets/component_battery.png" width="250"><br><sub>7.4 V rechargeable battery</sub></td><td align="center"><img src="assets/component_buck.png" width="220"><br><sub>5 V buck converter</sub></td><td align="center"><img src="assets/component_pcb.png" width="250"><br><sub>Custom electronics board</sub></td></tr></table>
 
 The robot uses a **7.4 V, 1500 mAh Li-ion rechargeable battery pack**.
 
@@ -352,7 +329,7 @@ appropriate supply to the motor system and regulated electronics.
 
 The main architecture is:
 
-![Engineering flowchart 5](12_MEDIA/assets/05_power_arch.svg)
+![Engineering flowchart 5](assets/05_power_arch.svg)
 
 The Raspberry Pi requires a stable regulated supply because voltage
 drops can cause instability or unexpected resets.
@@ -364,16 +341,16 @@ treated separately.
 
 # Power Budget and Distribution
 
-![5 V buck converter and custom electronics](12_MEDIA/assets/component_buck.png)
-![Custom electronics board](12_MEDIA/assets/component_pcb.png)
+![5 V buck converter and custom electronics](assets/component_buck.png)
+![Custom electronics board](assets/component_pcb.png)
 
 The major electrical loads are:
 
-![Power distribution table](12_MEDIA/assets/table_power.svg)
+![Power distribution table](assets/table_power.svg)
 
 The main power risks identified were:
 
-![Power risks](12_MEDIA/assets/power_risks.svg)
+![Power risks](assets/power_risks.svg)
 
 Power connections were secured, regulated supplies were used for
 sensitive electronics, and the wiring was organised to reduce accidental
@@ -387,20 +364,20 @@ competition operation.
 
 # Sensor Architecture
 
-<table><tr><td align="center"><img src="12_MEDIA/assets/component_camera.png" width="220"><br><sub>Raspberry Pi Camera Module 3 Wide</sub></td><td align="center"><img src="12_MEDIA/assets/component_imu.png" width="220"><br><sub>BNO055 IMU</sub></td><td align="center"><img src="12_MEDIA/assets/component_ir.png" width="220"><br><sub>IR sensors</sub></td><td align="center"><img src="12_MEDIA/assets/component_limit.png" width="220"><br><sub>VEX limit switches</sub></td></tr></table>
+<table><tr><td align="center"><img src="assets/component_camera.png" width="220"><br><sub>Raspberry Pi Camera Module 3 Wide</sub></td><td align="center"><img src="assets/component_imu.png" width="220"><br><sub>BNO055 IMU</sub></td><td align="center"><img src="assets/component_ir.png" width="220"><br><sub>IR sensors</sub></td><td align="center"><img src="assets/component_limit.png" width="220"><br><sub>VEX limit switches</sub></td></tr></table>
 
-![Robot sensor overview](12_MEDIA/assets/robot_front_card.png)
+![Robot sensor overview](assets/robot_front_card.png)
 
 The robot uses multiple sensors because no single sensor provides
 reliable information for every part of the challenge.
 
 The main sensing systems are:
 
-![Primary sensing systems](12_MEDIA/assets/sensor_list.svg)
+![Primary sensing systems](assets/sensor_list.svg)
 
 Each sensor has a defined role.
 
-![Sensor role table](12_MEDIA/assets/table_sensor.svg)
+![Sensor role table](assets/table_sensor.svg)
 
 The camera is the primary perception sensor. The IMU provides
 orientation information, while the IR sensors provide close-range
@@ -412,35 +389,35 @@ feedback where visual positioning becomes less reliable.
 
 ## Camera
 
-![Raspberry Pi Camera Module 3 Wide](12_MEDIA/assets/component_camera.png)
+![Raspberry Pi Camera Module 3 Wide](assets/component_camera.png)
 
 The camera provides substantially more environmental information than a
 single distance sensor.
 
 It can be used for:
 
-![Sensor functions](12_MEDIA/assets/camera_uses.svg)
+![Sensor functions](assets/camera_uses.svg)
 
 Its main limitation is sensitivity to lighting, exposure, and colour
 thresholds.
 
 ## BNO055 IMU
 
-![BNO055 IMU](12_MEDIA/assets/component_imu.png)
+![BNO055 IMU](assets/component_imu.png)
 
 The BNO055 provides orientation information using internal sensor
 fusion.
 
 It is useful for:
 
-![Sensor functions](12_MEDIA/assets/imu_uses.svg)
+![Sensor functions](assets/imu_uses.svg)
 
 Its readings can still be affected by calibration and the robot's
 mounting environment.
 
 ## IR Sensors
 
-![IR sensors](12_MEDIA/assets/component_ir.png)
+![IR sensors](assets/component_ir.png)
 
 IR sensors are simple and fast for short-range detection.
 
@@ -452,7 +429,7 @@ information than the camera.
 
 ## Limit Switches
 
-![VEX limit switches](12_MEDIA/assets/component_limit.png)
+![VEX limit switches](assets/component_limit.png)
 
 Limit switches provide simple physical feedback and an additional
 fail-safe if the robot unexpectedly interacts with an object.
@@ -461,9 +438,9 @@ fail-safe if the robot unexpectedly interacts with an object.
 
 # Sensor Placement
 
-<img src="12_MEDIA/assets/sensor_placement.png" alt="Sensor placement on robot" width="850">
+<img src="assets/sensor_placement.png" alt="Sensor placement on robot" width="850">
 
-![Sensor placement on the robot](12_MEDIA/assets/sensor_placement.png)
+![Sensor placement on the robot](assets/sensor_placement.png)
 
 Sensor placement was based on the geometry of the task rather than
 simply available space.
@@ -472,16 +449,14 @@ simply available space.
 
 The camera is:
 
-![Camera mount geometry](12_MEDIA/assets/camera_mount_specs.svg)
+![Camera mount geometry](assets/camera_mount_specs.svg)
 
 The centred mounting keeps the camera coordinate system aligned with the
 robot's centreline.
 
 The height and angle provide a forward field of view while allowing the
 software to observe relevant track features before the robot reaches
-them. The approximately 10° downward angle was calculated using the
-measured camera height and maximum useful detection distance, using the
-tangent relationship rather than choosing the angle by trial alone.
+them.
 
 ### BNO055
 
@@ -517,7 +492,7 @@ colour-detection approach that was most consistent during our testing.
 
 The general processing pipeline is:
 
-![Engineering flowchart 6](12_MEDIA/assets/06_vision_pipeline.svg)
+![Engineering flowchart 6](assets/06_vision_pipeline.svg)
 
 Thresholds were tuned using real camera data instead of relying only on
 theoretical colour values.
@@ -552,7 +527,7 @@ replacement for visual information.
 
 Sensor testing was performed independently before full-system testing.
 
-![Sensor testing](12_MEDIA/assets/sensor_tests.svg)
+![Sensor testing](assets/sensor_tests.svg)
 
 Testing sensors independently allowed us to determine whether a failure
 originated from sensing, software, or the physical system.
@@ -565,11 +540,11 @@ The robot software is modular rather than being one large program.
 
 The main software layers are:
 
-![Software architecture](12_MEDIA/assets/07_software_arch.svg)
+![Software architecture](assets/07_software_arch.svg)
 
 The main functional modules are:
 
-![Software module structure](12_MEDIA/assets/08_software_structure.svg)
+![Software module structure](assets/08_software_structure.svg)
 
 This structure makes it possible to test and modify individual systems
 without rewriting the complete program.
@@ -580,7 +555,7 @@ without rewriting the complete program.
 
 The intended software organisation is:
 
-![Engineering flowchart 8](12_MEDIA/assets/08_software_structure.svg)
+![Engineering flowchart 8](assets/08_software_structure.svg)
 
 Each module has a defined responsibility, making debugging and future
 changes easier.
@@ -592,7 +567,7 @@ changes easier.
 The master state machine provides the overall structure of the robot's
 behaviour.
 
-![Engineering flowchart 9](12_MEDIA/assets/09_master_fsm.svg)
+![Engineering flowchart 9](assets/09_master_fsm.svg)
 
 The state machine prevents unrelated behaviours from interfering with
 one another.
@@ -604,7 +579,7 @@ completing its laps.
 
 # Computer Vision
 
-<img src="12_MEDIA/assets/computer_vision_tasks.svg" alt="Computer vision tasks" width="850">
+<img src="assets/computer_vision_tasks.svg" alt="Computer vision tasks" width="850">
 
 Computer vision is one of the main parts of our robot.
 
@@ -613,7 +588,7 @@ OpenCV is used to process the images.
 
 The main vision tasks are:
 
-![Computer vision tasks](12_MEDIA/assets/computer_vision_tasks.svg)
+![Computer vision tasks](assets/computer_vision_tasks.svg)
 
 Regions of interest are used where appropriate to reduce unnecessary
 processing and focus the algorithm on areas relevant to navigation.
@@ -634,7 +609,7 @@ the most consistent results during our testing.
 
 The process is:
 
-![Engineering flowchart 10](12_MEDIA/assets/10_colour_pipeline.svg)
+![Engineering flowchart 10](assets/10_colour_pipeline.svg)
 
 The detected colour region is then converted into information that can
 be used by the navigation system.
@@ -651,7 +626,7 @@ A target position is generated from the detected wall or lane geometry.
 The difference between the target position and the detected position
 becomes the steering error.
 
-![Engineering flowchart 11](12_MEDIA/assets/11_steering_error.svg)
+![Engineering flowchart 11](assets/11_steering_error.svg)
 
 The controller converts this error into a steering command.
 
@@ -672,7 +647,7 @@ smaller.
 
 The basic proportional relationship is:
 
-![Engineering flowchart 12](12_MEDIA/assets/12_proportional_control.svg)
+![Engineering flowchart 12](assets/12_proportional_control.svg)
 
 A proportional controller was selected because our primary requirement
 was fast, predictable correction.
@@ -702,7 +677,7 @@ times.
 
 The logic is:
 
-![Engineering flowchart 13](12_MEDIA/assets/13_lap_debounce.svg)
+![Engineering flowchart 13](assets/13_lap_debounce.svg)
 
 This prevents a single physical marker from producing multiple lap
 counts.
@@ -719,7 +694,7 @@ requirements.
 
 The obstacle pipeline is:
 
-![Engineering flowchart 14](12_MEDIA/assets/14_obstacle_pipeline.svg)
+![Engineering flowchart 14](assets/14_obstacle_pipeline.svg)
 
 The robot uses the detected obstacle colour as an input to the
 navigation decision rather than treating colour detection as an isolated
@@ -747,7 +722,7 @@ state and visible track geometry.
 
 The decision process is:
 
-![Engineering flowchart 15](12_MEDIA/assets/15_obstacle_decision.svg)
+![Engineering flowchart 15](assets/15_obstacle_decision.svg)
 
 This allows the robot to respond to obstacle position rather than
 relying on fixed obstacle coordinates.
@@ -793,7 +768,7 @@ positions.
 Instead, it continuously detects visible wall geometry and adjusts its
 path.
 
-![Engineering flowchart 16](12_MEDIA/assets/16_open_strategy.svg)
+![Engineering flowchart 16](assets/16_open_strategy.svg)
 
 This allows the navigation system to adapt to different track layouts.
 
@@ -808,11 +783,11 @@ system as simple as possible.
 
 The current parking development approach combines:
 
-![Parking inputs](12_MEDIA/assets/parking_inputs.svg)
+![Parking inputs](assets/parking_inputs.svg)
 
 The intended sequence is:
 
-![Engineering flowchart 17](12_MEDIA/assets/17_parking_strategy.svg)
+![Engineering flowchart 17](assets/17_parking_strategy.svg)
 
 The camera provides the main environmental information while the IMU and
 IR sensors provide additional feedback during the final alignment stage.
@@ -887,7 +862,7 @@ verification step.
 
 Our development cycle was:
 
-![Engineering flowchart 18](12_MEDIA/assets/18_test_cycle.svg)
+![Engineering flowchart 18](assets/18_test_cycle.svg)
 
 Changing one major variable at a time made it easier to determine
 whether a change actually improved the robot.
@@ -898,7 +873,7 @@ whether a change actually improved the robot.
 
 Testing was divided into:
 
-![Testing methodology](12_MEDIA/assets/test_categories.svg)
+![Testing methodology](assets/test_categories.svg)
 
 ### Full-System Testing
 
@@ -915,11 +890,11 @@ improvements only by appearance.
 
 The main performance metrics were:
 
-![Testing metrics](12_MEDIA/assets/performance_metrics.svg)
+![Testing metrics](assets/performance_metrics.svg)
 
 For software tuning, we looked particularly at the trade-off between:
 
-![Engineering flowchart 19](12_MEDIA/assets/19_response_tradeoff.svg)
+![Engineering flowchart 19](assets/19_response_tradeoff.svg)
 
 A parameter was not considered better simply because it increased speed.
 The objective was to improve speed while maintaining reliable
@@ -934,7 +909,7 @@ the robot.
 
 The process was:
 
-![Colour threshold testing](12_MEDIA/assets/colour_test_steps.svg)
+![Colour threshold testing](assets/colour_test_steps.svg)
 
 This reduced the chance that the robot would depend on one ideal
 lighting condition.
@@ -968,7 +943,7 @@ speed.
 
 Obstacle testing was performed by changing:
 
-![Obstacle testing](12_MEDIA/assets/obstacle_test_vars.svg)
+![Obstacle testing](assets/obstacle_test_vars.svg)
 
 The objective was to verify that the software did not simply recognise
 the colour but actually used it to make the correct navigation decision.
@@ -984,7 +959,7 @@ lap event.
 
 The debounce logic was therefore tested by:
 
-![Lap testing](12_MEDIA/assets/lap_test_vars.svg)
+![Lap testing](assets/lap_test_vars.svg)
 
 The final system accepts a new lap only after the previous detection has
 cleared.
@@ -997,7 +972,7 @@ Parking was tested separately from normal driving.
 
 The main parameters considered were:
 
-![Parking testing](12_MEDIA/assets/parking_test_vars.svg)
+![Parking testing](assets/parking_test_vars.svg)
 
 The parking algorithm was adjusted through repeated attempts rather than
 relying on one successful run.
@@ -1017,7 +992,7 @@ observed behaviour.
 
 A simplified development sequence was:
 
-![Engineering flowchart 20](12_MEDIA/assets/20_software_iterations.svg)
+![Engineering flowchart 20](assets/20_software_iterations.svg)
 
 Each stage added functionality while preserving previously working
 behaviour.
@@ -1031,11 +1006,11 @@ mechanical, electrical, sensor, and software projects.
 
 For example:
 
-![Engineering flowchart 21](12_MEDIA/assets/21_sensor_feedback.svg)
+![Engineering flowchart 21](assets/21_sensor_feedback.svg)
 
 Similarly:
 
-![Engineering flowchart 22](12_MEDIA/assets/22_power_feedback.svg)
+![Engineering flowchart 22](assets/22_power_feedback.svg)
 
 A change in one subsystem can therefore affect another subsystem.
 
@@ -1047,7 +1022,7 @@ This interaction was considered when making design decisions.
 
 The major constraints we worked under were:
 
-![Engineering constraints](12_MEDIA/assets/constraints.svg)
+![Engineering constraints](assets/constraints.svg)
 
 Instead of optimising one subsystem independently, we looked for
 solutions that worked within the complete system.
@@ -1067,9 +1042,8 @@ We therefore prioritised controllable speed over maximum possible speed.
 
 A higher gear ratio provides more torque but reduces wheel speed.
 
-We selected the LEGO Medium Motor because it provided sufficient torque
-and speed while integrating directly with the LEGO drivetrain. Its built-in
-rotation sensor also provided useful feedback without adding another sensor.
+We selected the 22:1 gearbox because the robot needed enough torque to
+accelerate and maintain motion while still having useful speed.
 
 ## Camera Information vs Processing
 
@@ -1111,27 +1085,27 @@ steering.
 
 Driving tests identified issues with:
 
-![Intermediate design issues](12_MEDIA/assets/design_problems.svg)
+![Intermediate design issues](assets/design_problems.svg)
 
 ### Improved Design
 
 We introduced:
 
-![Improved design features](12_MEDIA/assets/design_improvements.svg)
+![Improved design features](assets/design_improvements.svg)
 
 ### Final Design
 
 The final system combines:
 
-![Final design](12_MEDIA/assets/final_design.svg)
+![Final design](assets/final_design.svg)
 
-![Final system components](12_MEDIA/assets/final_system.svg)
+![Final system components](assets/final_system.svg)
 
 ------------------------------------------------------------------------
 
 # Problems → Solutions → Results
 
-![Problems, solutions and results](12_MEDIA/assets/table_problems.svg)
+![Problems, solutions and results](assets/table_problems.svg)
 
 ------------------------------------------------------------------------
 
@@ -1159,7 +1133,7 @@ problem.
 
 We considered the following major failure modes:
 
-![Risk and failure analysis](12_MEDIA/assets/table_risk.svg)
+![Risk and failure analysis](assets/table_risk.svg)
 
 For example, camera failure cannot always be prevented, so the software
 avoids making an extreme decision based on one bad frame.
@@ -1174,7 +1148,7 @@ problems.
 
 # Final System Architecture
 
-![Engineering flowchart 24](12_MEDIA/assets/24_final_arch.svg)
+![Engineering flowchart 24](assets/24_final_arch.svg)
 
 This architecture separates perception, decision-making, and actuation
 while maintaining feedback between them.
@@ -1183,15 +1157,19 @@ while maintaining feedback between them.
 
 # Final Hardware Specifications
 
-![Final hardware specifications](12_MEDIA/assets/table_specs.svg)
+![Final hardware specifications](assets/table_specs.svg)
 
 ------------------------------------------------------------------------
+
+## Bill of Materials------------------------------------------------------------------------
 
 ## Bill of Materials
 
-![Bill of Materials](12_MEDIA/assets/table_bom.svg)
+![Bill of Materials](assets/table_bom.svg)
 
 ------------------------------------------------------------------------
+
+# Reproducibility & GitHub Quality
 
 # Reproducibility & GitHub Quality
 
@@ -1200,7 +1178,7 @@ the documentation provided in this repository.
 
 The documentation covers:
 
-![Reproducibility checklist](12_MEDIA/assets/reproducibility.svg)
+![Reproducibility checklist](assets/reproducibility.svg)
 
 The mechanical documentation explains how the chassis and custom
 components fit together.
@@ -1223,7 +1201,7 @@ The software is intended to run on the Raspberry Pi.
 
 The basic setup process is:
 
-![Engineering flowchart 25](12_MEDIA/assets/25_setup.svg)
+![Engineering flowchart 25](assets/25_setup.svg)
 
 The software is divided into modules so that individual components can
 be tested before running the complete autonomous program.
@@ -1240,7 +1218,7 @@ commits.
 
 Examples of useful commit messages include:
 
-![Version control workflow](12_MEDIA/assets/26_commits.svg)
+![Version control workflow](assets/26_commits.svg)
 
 A useful commit should communicate what changed and, where relevant, why
 it changed.
@@ -1254,7 +1232,7 @@ only presenting a final code dump.
 
 Our standard testing workflow is:
 
-![Testing workflow](12_MEDIA/assets/27_testing_workflow.svg)
+![Testing workflow](assets/27_testing_workflow.svg)
 
 This prevents random tuning and makes engineering decisions traceable.
 
@@ -1266,9 +1244,9 @@ Important decisions were based on observed robot behaviour and testing.
 
 ### Motor
 
-We selected the LEGO Medium Motor because it provided sufficient
-performance while integrating directly with the LEGO chassis and drivetrain.
-Its compact form and built-in rotation sensor also reduced system complexity.
+We selected the D360 + 22:1 gearbox because smaller alternatives did not
+provide the required torque, while larger alternatives introduced
+unnecessary size and complexity.
 
 ### Chassis
 
@@ -1297,9 +1275,11 @@ incorrectly interpret electronics as environmental features.
 
 These decisions follow the engineering chain:
 
-![Evidence-based engineering decision chain](12_MEDIA/assets/28_decision_chain.svg)
+![Evidence-based engineering decision chain](assets/28_decision_chain.svg)
 
 ------------------------------------------------------------------------
+
+# Final Performance Validation------------------------------------------------------------------------
 
 # Final Performance Validation
 
@@ -1310,32 +1290,30 @@ This is the main recorded performance figure currently available to us; other pe
 The final robot is evaluated across the same major areas used during
 development.
 
-![Final performance metrics](12_MEDIA/assets/performance_metrics.svg)
+![Final performance metrics](assets/performance_metrics.svg)
 
 ### Full System
 
 The final test is performed with all subsystems operating simultaneously
 because individual subsystem success does not guarantee full-system
-success. The same categories used during subsystem testing are then
-checked again at the integrated-system level, including navigation,
-obstacle handling, parking, steering stability and electrical stability.
+success.
 
 ------------------------------------------------------------------------
 
 # Final Robot
 
-<img src="12_MEDIA/assets/final_design.svg" alt="Final robot architecture" width="850">
+<img src="assets/final_design.svg" alt="Final robot architecture" width="850">
 
-<table><tr><td align="center"><img src="12_MEDIA/assets/robot_front_card.png" width="240"><br><sub>Front</sub></td><td align="center"><img src="12_MEDIA/assets/robot_side_card.png" width="240"><br><sub>Side</sub></td><td align="center"><img src="12_MEDIA/assets/robot_top_card.png" width="240"><br><sub>Top</sub></td><td align="center"><img src="12_MEDIA/assets/robot_rear_card.png" width="240"><br><sub>Rear</sub></td></tr></table>
+<table><tr><td align="center"><img src="assets/robot_front_card.png" width="240"><br><sub>Front</sub></td><td align="center"><img src="assets/robot_side_card.png" width="240"><br><sub>Side</sub></td><td align="center"><img src="assets/robot_top_card.png" width="240"><br><sub>Top</sub></td><td align="center"><img src="assets/robot_rear_card.png" width="240"><br><sub>Rear</sub></td></tr></table>
 
-![Final robot views](12_MEDIA/assets/robot_views.png)
+![Final robot views](assets/robot_views.png)
 
 Our final robot is the result of repeated mechanical, electrical,
 sensor, and software iterations.
 
 The final design combines:
 
-![Final system components](12_MEDIA/assets/final_system.svg)
+![Final system components](assets/final_system.svg)
 
 The most important feature of the design is the interaction between
 these systems.
@@ -1363,7 +1341,7 @@ once is different from engineering a robot that works repeatedly.
 
 Our development therefore focused on:
 
-![Engineering philosophy](12_MEDIA/assets/engineering_philosophy.svg)
+![Engineering philosophy](assets/engineering_philosophy.svg)
 
 Whenever possible, we followed:
 
@@ -1402,5 +1380,3 @@ mechanical design, electronics, sensing, software, and control.
 The purpose of this repository is to preserve that engineering process
 and make the final robot understandable, reproducible, and useful to
 anyone who wants to study or build upon the project.
-
-
