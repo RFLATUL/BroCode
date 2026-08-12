@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="330"><rect width="100%" height="100%" fill="white" rx="24"/>
+<text x="40" y="45" font-family="Arial" font-size="27" font-weight="700" fill="#102060">Sensor Overview</text>
+<rect x="40" y="70" width="360" height="56" fill="#102060"/>
+<text x="220.0" y="105" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">Sensor</text>
+<rect x="400" y="70" width="520" height="56" fill="#102060"/>
+<text x="660.0" y="105" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="white">Main Purpose</text>
+<rect x="40" y="126" width="360" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="151" font-family="Arial" font-size="15" fill="#172033">Pi Camera</text>
+<rect x="400" y="126" width="520" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="414" y="151" font-family="Arial" font-size="15" fill="#172033">Vision, track interpretation, obstacle recognition,</text>
+<text x="414" y="168" font-family="Arial" font-size="15" fill="#172033">parking</text>
+<rect x="40" y="170" width="360" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="195" font-family="Arial" font-size="15" fill="#172033">BNO055 IMU</text>
+<rect x="400" y="170" width="520" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="414" y="195" font-family="Arial" font-size="15" fill="#172033">Orientation and heading feedback</text>
+<rect x="40" y="214" width="360" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="54" y="239" font-family="Arial" font-size="15" fill="#172033">IR Sensors</text>
+<rect x="400" y="214" width="520" height="44" fill="#F7FAFD" stroke="#D9E2EF"/>
+<text x="414" y="239" font-family="Arial" font-size="15" fill="#172033">Short-range detection and parking alignment</text>
+<rect x="40" y="258" width="360" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="54" y="283" font-family="Arial" font-size="15" fill="#172033">Limit Switches</text>
+<rect x="400" y="258" width="520" height="44" fill="white" stroke="#D9E2EF"/>
+<text x="414" y="283" font-family="Arial" font-size="15" fill="#172033">Physical fail-safe feedback</text>
+</svg>

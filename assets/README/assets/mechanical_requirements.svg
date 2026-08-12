@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="283"><rect width="100%" height="100%" rx="24" fill="white"/>
+<text x="50" y="55" font-family="Arial" font-size="28" font-weight="700" fill="#102060">Mechanical Design Requirements</text>
+<circle cx="60" cy="100" r="6" fill="#215FAE"/>
+<text x="78" y="106" font-family="Arial" font-size="17" fill="#172033">Rigidity — the chassis should not flex</text>
+<text x="78" y="128" font-family="Arial" font-size="17" fill="#172033">enough to change steering geometry.</text>
+<circle cx="60" cy="156" r="6" fill="#215FAE"/>
+<text x="78" y="162" font-family="Arial" font-size="17" fill="#172033">Compactness — the robot should remain</text>
+<text x="78" y="184" font-family="Arial" font-size="17" fill="#172033">small and manoeuvrable.</text>
+<circle cx="60" cy="212" r="6" fill="#215FAE"/>
+<text x="78" y="218" font-family="Arial" font-size="17" fill="#172033">Modularity — components should be easy to</text>
+<text x="78" y="240" font-family="Arial" font-size="17" fill="#172033">modify and repair.</text>
+</svg>

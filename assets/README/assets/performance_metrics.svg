@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="395"><rect width="100%" height="100%" rx="24" fill="white"/>
+<text x="50" y="55" font-family="Arial" font-size="28" font-weight="700" fill="#102060">Testing Metrics</text>
+<circle cx="60" cy="100" r="6" fill="#215FAE"/>
+<text x="78" y="106" font-family="Arial" font-size="17" fill="#172033">Lap completion rate</text>
+<circle cx="60" cy="156" r="6" fill="#215FAE"/>
+<text x="78" y="162" font-family="Arial" font-size="17" fill="#172033">Lap time</text>
+<circle cx="60" cy="212" r="6" fill="#215FAE"/>
+<text x="78" y="218" font-family="Arial" font-size="17" fill="#172033">Number of obstacle-avoidance successes</text>
+<circle cx="60" cy="268" r="6" fill="#215FAE"/>
+<text x="78" y="274" font-family="Arial" font-size="17" fill="#172033">Number of obstacle contacts</text>
+<circle cx="60" cy="324" r="6" fill="#215FAE"/>
+<text x="78" y="330" font-family="Arial" font-size="17" fill="#172033">Parking success rate</text>
+<circle cx="555" cy="100" r="6" fill="#215FAE"/>
+<text x="573" y="106" font-family="Arial" font-size="17" fill="#172033">Steering stability</text>
+<circle cx="555" cy="156" r="6" fill="#215FAE"/>
+<text x="573" y="162" font-family="Arial" font-size="17" fill="#172033">Number of recovery events</text>
+<circle cx="555" cy="212" r="6" fill="#215FAE"/>
+<text x="573" y="218" font-family="Arial" font-size="17" fill="#172033">Number of false obstacle detections</text>
+<circle cx="555" cy="268" r="6" fill="#215FAE"/>
+<text x="573" y="274" font-family="Arial" font-size="17" fill="#172033">Number of incorrect lap counts</text>
+<circle cx="555" cy="324" r="6" fill="#215FAE"/>
+<text x="573" y="330" font-family="Arial" font-size="17" fill="#172033">Electrical stability during continuous</text>
+<text x="573" y="352" font-family="Arial" font-size="17" fill="#172033">operation</text>
+</svg>
