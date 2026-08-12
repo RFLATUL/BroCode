@@ -218,24 +218,23 @@ g**.
 # Mobility and Drive System
 
 
-The robot uses a **D360 brushed DC motor with a 22:1 gearbox** for
+The robot uses a **LEGO Medium Motor** for
 propulsion.
 
-The gearbox was important because the robot needs useful wheel torque
-while still maintaining practical speed.
+The LEGO Medium Motor was important because it integrates directly 
+with the LEGO Technic chassis while providing sufficient torque and 
+speed for propulsion.
 
 The basic relationship considered during motor selection was:
 
 ![Engineering flowchart 3](assets/03_torque.svg)
 
-Increasing the gear ratio increases available wheel torque but reduces
-output speed.
+The motor provides a good balance between speed, torque, weight, and ease of integration.
 
 Our objective was not to select the motor with the highest advertised
 RPM or torque. We needed a combination that provided:
 
-
-The D360 with the 22:1 gearbox provided the most suitable balance for
+The LEGO Medium Motor provided the most suitable balance for
 our robot.
 
 ------------------------------------------------------------------------
@@ -243,16 +242,15 @@ our robot.
 # Steering System
 
 
-Steering is provided by a **REV Robotics 2000 Series Dual Mode Servo**
-mounted using a GoBILDA servo frame.
+Steering is provided by the **RoboKits India UltraTorque Servo**, 
+mounted securely on the front of the robot. The servo was selected
+for its high torque and precise angular control, allowing the robot 
+to make fast and accurate steering corrections.
 
-The steering mechanism requires controlled angular positioning, so the
-servo provides a more appropriate interface than a simple uncontrolled
-motor.
+Mechanical play wastreated as an important source of error. If the 
+linkage or servo mounting moves under load, the same software 
+command can produce different physical steering angles.
 
-Mechanical play was treated as an important source of error. If the
-linkage or servo mounting moves under load, the same software command
-can produce different physical steering angles.
 
 The steering loop is:
 
