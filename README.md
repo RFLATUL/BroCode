@@ -427,7 +427,7 @@ instability.
 
 # Power Architecture
 
-The robot uses a **7.4 V, 1500 mAh Li-ion battery pack**.
+The robot uses a **7.4 V, 1500 mAh Li-ion rechargeable battery pack**.
 
 The battery feeds the power distribution system, which provides the
 appropriate supply to the motor system and regulated electronics.
