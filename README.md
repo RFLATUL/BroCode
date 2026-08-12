@@ -206,8 +206,6 @@ structural parts.
 
 The mechanical design was based on three requirements:
 
-![Mechanical requirements](assets/mechanical_requirements.svg)
-
 The approximate base footprint is **22 cm × 12 cm**. The camera is
 mounted approximately **26 cm above the floor**, with its optical axis
 angled approximately **10° downward from horizontal**.
@@ -220,8 +218,6 @@ g**.
 # Mobility and Drive System
 
 <table><tr><td align="center"><img src="assets/component_lego_motor.png" width="320"><br><sub>D360 brushed DC motor + 22:1 gearbox</sub></td><td align="center"><img src="assets/component_tb6612.png" width="220"><br><sub>TB6612FNG motor driver</sub></td></tr></table>
-
-![D360 brushed DC motor and 22:1 gearbox](assets/component_lego_motor.png)
 
 The robot uses a **D360 brushed DC motor with a 22:1 gearbox** for
 propulsion.
@@ -250,7 +246,6 @@ our robot.
 
 <table><tr><td align="center"><img src="assets/component_servo.png" width="280"><br><sub>UltraTorque steering servo</sub></td><td align="center"><img src="assets/servo_crop.png" width="220"><br><sub>Steering assembly</sub></td></tr></table>
 
-![UltraTorque steering servo](assets/component_servo.png)
 
 Steering is provided by a **REV Robotics 2000 Series Dual Mode Servo**
 mounted using a GoBILDA servo frame.
