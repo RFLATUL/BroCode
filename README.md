@@ -274,10 +274,11 @@ We considered several motor options.
 
 ### LEGO Medium Motor
 
-### Final Choice: D360 + 22:1 Gearbox
+### Final Choice: LEGO Medium Motor
+The motor provides a good balance between speed, torque, weight, and ease of integration.
 
-The D360 solution provided the best overall balance between speed,
-torque, weight, size, and integration simplicity.
+Our objective was not to select the motor with the highest advertised
+RPM or torque. We needed a combination that provided:
 
 The decision was based on the complete drivetrain requirement rather
 than a single motor specification.
